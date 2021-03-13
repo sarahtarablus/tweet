@@ -1,0 +1,28 @@
+{
+  "name": "tweet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "twitter": "npm run watch --prefix twitter",
+    "dev": "concurrently \"nodemon app.js\" \"npm run twitter\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarahtarablus/tweet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarahtarablus/tweet/issues"
+  },
+  "homepage": "https://github.com/sarahtarablus/tweet#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7"
+  }
+}
