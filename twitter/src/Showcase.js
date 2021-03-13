@@ -5,12 +5,20 @@ import {faRetweet, faComment, faHeart} from '@fortawesome/free-solid-svg-icons';
 
 const Showcase = (props) => {
   return (
-  <div className='showcase'>
-    <div className='usernameAndDate'>
-     <p>{props.name}</p>
-     <p>{props.username}</p>
-     <p>{props.date}</p>
-    </div>
+
+   <div>
+      {props.people.map(person => {
+        return   <div className='showcase'> <div className='usernameAndDate'>
+        <p>{person.id}</p>
+        <p>{person.name}</p>
+        <p>{person.username}</p>
+        <p>{person.content}</p>
+        <p>{person.date}</p>
+        </div>
+        </div>
+      })}
+    
+   
     <div>
       <p>{props.content}</p>
     </div>
