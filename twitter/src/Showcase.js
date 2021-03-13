@@ -14,19 +14,14 @@ const Showcase = (props) => {
         <p>{person.username}</p>
         <p>{person.content}</p>
         <p>{person.date}</p>
-        </div>
-        </div>
-      })}
-    
-   
-    <div>
-      <p>{props.content}</p>
-    </div>
-    <div className='icons'>
+        <div className='icons'>
       <div className='icon'><FontAwesomeIcon icon={faComment}/></div>
       <div className='icon'><FontAwesomeIcon icon={faRetweet}/></div>
       <div className='icon'><FontAwesomeIcon icon={faHeart}/></div>
     </div> 
+        </div>
+        </div>
+      })} 
   </div>
   )
 }
