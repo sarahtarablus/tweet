@@ -75,7 +75,7 @@ a:hover {
 .search {
   width: 100vw;
   height: 100vh;
-  background-image: url('images/twitterPic2.jpg');
+  background-image: url('images/TwitterPic2.jpg');
   background-size: cover; 
 }
 
@@ -142,4 +142,14 @@ p {
 .icon {
   display: inline-flex;
   padding: 0 10px 0 50px;
+}
+
+.random {
+  background-color: white;
+  color: black;
+}
+
+.char {
+  background-color: white;
+  color: black;
 }

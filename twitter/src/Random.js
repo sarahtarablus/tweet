@@ -1,21 +1,44 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
+import axios from 'axios';
 
-const Random = () => {
-  const [initState, setInitState] = useState([]);
+const Random = (props) => {
+  const [initState, setInitState] = useState({});
 
-  useEffect(() => {
-    fetch('/api/char').then(res => {
-      if(res.ok){
-        return res.json()
-      }
-    }).then(jsonResponse => setInitState(jsonResponse))
-  }, [])
+  const getChar = () => {
+  
+    axios.get('/api/char')
+      .then(res => {
+        const response = res.data;
+        // const {name, value} = response;
+        setInitState((prev) => ({
+          ...prev,
+         response
+        }))
+        console.log(initState)
+      })
 
-  console.log(initState)
+    
+      
+        
+  } 
+      
+     
+    // fetch('/api/char')
+    // .then(res => res.json())
+    // .then(jsonResponse => console.log(jsonResponse))
+  
+  
+
+  
   return (
+ 
     <div>
-      <button onClick={initState}/>
+      <button className='random' onClick={getChar}>Random search</button>
+      {/* <div className='char'>{initState}</div> */}
+      {/* <ul className='char'>
+        {initState.map(i => <li key={i.id}>{i.name}</li>)}
+      </ul> */}
     </div>
   )
 }
