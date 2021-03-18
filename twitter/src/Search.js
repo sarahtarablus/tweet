@@ -5,6 +5,7 @@ import Showcase from './Showcase.js';
 
 const characters = [
   {
+   img: ('/images/pic1.jpg'),
    name: 'Jon Doe',
    username: '@jondoe',
    date: 'Mon Mar 09 13:35:09',
@@ -12,6 +13,7 @@ const characters = [
   },
  
   {
+   img: '/images/pic1.jpg',
    name: 'Brad Davis',
    username: '@braddavis',
    date: 'Mon Mar 09 13:35:09',
@@ -19,6 +21,7 @@ const characters = [
   },
  
   {
+   img: '/images/pic1.jpg',
    name: 'Mona Diaz',
    username: '@monadiaz',
    date: 'Mon Mar 09 13:35:09',
@@ -26,6 +29,7 @@ const characters = [
   },
  
   {
+   img: '/images/pic1.jpg',
    name: 'Laila Rally',
    username: '@lailarally',
    date: 'Mon Mar 09 13:35:09',
@@ -45,20 +49,21 @@ const Search = (props) => {
 
   return (
     <div className='search'>
-      <div className='input'>
-        <input onChange={createShowcase} name='searchInput' placeholder='search' required></input>
+    <form>
+      <div className='form-group'>
+        <input className='form-control-lg' onChange={createShowcase} type='text' placeholder='search' required></input>
       </div>
       <div className='buttons'>
-        <button>Username</button>
-        <button>Content</button>
+        <button type='submit' className='btn btn-dark'>Username</button>
+        <button type='submit' className='btn btn-dark'>Content</button>
       </div>
-      <div>
+    </form>
     
      <Showcase people={people}/>
       
       
       </div>
-    </div>
+  
   )
 }
 

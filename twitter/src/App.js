@@ -11,20 +11,20 @@ import './style.css';
 class App extends Component {
   render () {
     return (
-      <div  className='navbar'>
+      <div  >
       <HashRouter>
-        <div>
-          <ul>
-            <li className='linkHome'><NavLink to ='/'>Home</NavLink></li>
-            <li><NavLink to ='/Search'>Search</NavLink></li>
-            <li><NavLink to ='/Random'>Random</NavLink></li>
+        <div  className='navbar navbar-expand-lg navbar-dark bg-dark px-5 py-4'> 
+          <ul className='navbar-nav'>
+            <li className='nav-item'><NavLink className='nav-link' to ='/'>Home</NavLink></li>
+            <li className='nav-item'><NavLink className='nav-link' to ='/Search'>Search</NavLink></li>
+            <li className='nav-item'><NavLink className='nav-link' to ='/Random'>Random</NavLink></li>
           </ul>
+        </div>
           <div>
             <Route exact path ='/' component={Home} />
             <Route path ='/Search' component={Search} />
             <Route path ='/Random' component={Random} />
           </div>
-        </div>
       </HashRouter>
       </div>
     )
