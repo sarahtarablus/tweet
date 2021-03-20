@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
 import Showcase from './Showcase.js';
+import axios from 'axios';
 
 
 const characters = [
@@ -39,32 +40,39 @@ const characters = [
 
 
 const Search = (props) => {
+  const [input, setInput] = useState('');
   const [people, setPeople] = useState([]);
 
-  const createShowcase = () => {
-    setPeople(characters);
-
-  console.log('state', {people})
+  // const createShowcase = () => {
+  //   setPeople(characters);
+  const getUser = () => {
+    axios.get('/api/userTweets')
+     .then(res => console.log(res))
   }
+
+  
 
   return (
     <div className='search'>
     <form>
       <div className='form-group'>
-        <input className='form-control-lg' onChange={createShowcase} type='text' placeholder='search' required></input>
+        <input className='form-control-lg' onChange={({target}) => setInput(target.value)} value={input} type='text' placeholder='search' required></input>
       </div>
       <div className='buttons'>
-        <button type='submit' className='btn btn-dark'>Username</button>
+        <button onSubmit={getUser} type='submit' className='btn btn-dark'>Username</button>
         <button type='submit' className='btn btn-dark'>Content</button>
       </div>
     </form>
-    
+     <div>
+       <p>{input}</p>
+     </div>
      <Showcase people={people}/>
       
       
-      </div>
+    </div>
   
   )
 }
+
 
 export default Search;

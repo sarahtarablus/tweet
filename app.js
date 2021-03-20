@@ -8,12 +8,6 @@ axios = require('axios');
 app.use('/', express.static(path.join(__dirname, 'twitter','build')));
 
 
-app.get('/api/results', ((req, res) => {
-  res.send(results)
-  console.log(results)
-}))
-
-
 const headers = {
   headers: {
     Authorization: `Bearer ${process.env.BEARER_TOKEN}`
@@ -38,11 +32,21 @@ const getId = (res) => {
 
 const getTweets = (res) => {
   const tweets = res.data;
+  let tweetsArray = [];
   for(let i = 0; i < tweets.length; i++){
-    //console.log(tweets[i].user.profile_image_url)
-    console.log(tweets[i].created_at,tweets[i].id,tweets[i]. text,tweets[i].user.name, tweets[i].user.screen_name, tweets[i].user.profile_image_url)
-  }
+    const tweet = {
+                   'date':tweets[i].created_at,
+                   'id':tweets[i].id,
+                   'text':tweets[i].text,
+                   'name':tweets[i].user.name, 
+                   'userName':tweets[i].user.screen_name, 
+                   'image':tweets[i].user.profile_image_url
+                  } 
+    tweetsArray.push(tweet)      
+  } 
+  return(tweetsArray) 
 }
+
 
 
 const getTweetsFromOneUser = async () => {
@@ -50,16 +54,26 @@ const getTweetsFromOneUser = async () => {
     const userUrl = await axios.get(endpointUrl, headers)
      .then(res => getId(res))
      .catch(err => console.log('Error' + err))
-    const userTweets = axios.get(userUrl, headers)
+    const userTweets = await axios.get(userUrl, headers)
      .then(res => getTweets(res))
      .catch(err => console.log(err))
-
+     app.get('/api/userTweets', ((req, res) => {
+      res.send(userTweets)
+    }))  
   }catch (err) {
     console.log(err)
   }
 }
 
 getTweetsFromOneUser();
+
+
+
+// app.get('/api/results', ((req, res) => {
+//   res.send(results)
+//   //console.log(tweetsResults)
+// }))
+
 
  
 const PORT = 3000;
