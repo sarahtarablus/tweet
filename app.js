@@ -9,15 +9,6 @@ bodyParser = require('body-parser');
 app.use('/', express.static(path.join(__dirname, 'twitter','build')));
 
 
-const headers = {
-  headers: {
-    Authorization: `Bearer ${process.env.BEARER_TOKEN}`
-  },
-  ContentType: 'application/json'
-}
-
-
-
 
 const getId = (res) => {
   let user = res.data.data;
@@ -27,6 +18,7 @@ const getId = (res) => {
     return url
   }
 }
+
 
 
 const getTweets = (res) => {
@@ -46,13 +38,25 @@ const getTweets = (res) => {
   return(tweetsArray) 
 }
 
+
+
 const createUrl = (name) => {
   const endpointUrl = `https://api.twitter.com/labs/2/users/by?usernames=${name}`
   return endpointUrl
 }
 
+
+
+const headers = {
+  headers: {
+    Authorization: `Bearer ${process.env.BEARER_TOKEN}`
+  },
+  ContentType: 'application/json'
+}
+
+
+
 const getTweetsFromOneUser = async (username) => {
-  // const endpointUrl = `https://api.twitter.com/labs/2/users/by?usernames=${name}`
   const url = createUrl(username)
   try {
     const userUrl = await axios.get(url, headers)
@@ -70,21 +74,21 @@ const getTweetsFromOneUser = async (username) => {
   }
 }
 
-//getTweetsFromOneUser();
 
 
 app.use(bodyParser.json({extended: true}));
 
-let name;
+
+
 app.post('/api/post', ((req, res) => {
   let userData = [];
-  const responseJson = JSON.parse(req.body.form)
-  userData.push(responseJson)
+  const responseJson = JSON.parse(req.body.form);
+  userData.push(responseJson);
+  let name;
   for(let i = 0; i < userData.length; i++){
     name = userData[i].input 
   }
-  getTweetsFromOneUser(name)
-  
+ getTweetsFromOneUser(name);  
 }))
 
 
@@ -94,20 +98,7 @@ app.post('/api/post', ((req, res) => {
 
 
 
-// app.post('/api/post', ((req, res) => {
-//   const responseJson = JSON.parse(req.body.form)
-//   userData.push(responseJson)
-//   for(let i = 0; i < userData.length; i++){
-//     return userData[i].input
-//   }
-//   return res.send('Received POST Request')
-// }))
 
-
-// axios.get('/api/post')
-//   .then(res => console.log(res))
-//   .catch(err => console.log(err))
- 
 
 
 

@@ -45,6 +45,13 @@ const Search = (props) => {
 
   // const createShowcase = () => {
   //   setPeople(characters);
+  const createShowcaseData = (data) => {
+    for(let i = 0; i < data.length; i++){
+      data[i]
+    }
+  }
+  
+  
   const getUser = () => {
     const options = {
       headers: {
