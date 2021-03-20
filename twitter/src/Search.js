@@ -46,8 +46,17 @@ const Search = (props) => {
   // const createShowcase = () => {
   //   setPeople(characters);
   const getUser = () => {
-    axios.get('/api/userTweets')
-     .then(res => console.log(res))
+    const options = {
+      headers: {
+        ContentType: 'application/json'
+      },
+      form: JSON.stringify({
+        input
+      })
+    }
+    axios.post('/api/post',options)
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
   }
 
   
@@ -59,13 +68,10 @@ const Search = (props) => {
         <input className='form-control-lg' onChange={({target}) => setInput(target.value)} value={input} type='text' placeholder='search' required></input>
       </div>
       <div className='buttons'>
-        <button onSubmit={getUser} type='submit' className='btn btn-dark'>Username</button>
+        <button onClick={getUser} type='submit' className='btn btn-dark'>Username</button>
         <button type='submit' className='btn btn-dark'>Content</button>
       </div>
     </form>
-     <div>
-       <p>{input}</p>
-     </div>
      <Showcase people={people}/>
       
       

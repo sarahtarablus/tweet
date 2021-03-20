@@ -3,6 +3,7 @@ const express = require('express'),
 path = require('path'),
 app = express(),
 axios = require('axios');
+bodyParser = require('body-parser');
 
 
 app.use('/', express.static(path.join(__dirname, 'twitter','build')));
@@ -15,8 +16,6 @@ const headers = {
   ContentType: 'application/json'
 }
 
-
-const endpointUrl = 'https://api.twitter.com/labs/2/users/by?usernames=andysterks'
 
 
 
@@ -47,32 +46,70 @@ const getTweets = (res) => {
   return(tweetsArray) 
 }
 
+const createUrl = (name) => {
+  const endpointUrl = `https://api.twitter.com/labs/2/users/by?usernames=${name}`
+  return endpointUrl
+}
 
-
-const getTweetsFromOneUser = async () => {
+const getTweetsFromOneUser = async (username) => {
+  // const endpointUrl = `https://api.twitter.com/labs/2/users/by?usernames=${name}`
+  const url = createUrl(username)
   try {
-    const userUrl = await axios.get(endpointUrl, headers)
+    const userUrl = await axios.get(url, headers)
      .then(res => getId(res))
      .catch(err => console.log('Error' + err))
     const userTweets = await axios.get(userUrl, headers)
      .then(res => getTweets(res))
+     .then(res => console.log(res))
      .catch(err => console.log(err))
      app.get('/api/userTweets', ((req, res) => {
       res.send(userTweets)
     }))  
-  }catch (err) {
+  } catch (err) {
     console.log(err)
   }
 }
 
-getTweetsFromOneUser();
+//getTweetsFromOneUser();
+
+
+app.use(bodyParser.json({extended: true}));
+
+let name;
+app.post('/api/post', ((req, res) => {
+  let userData = [];
+  const responseJson = JSON.parse(req.body.form)
+  userData.push(responseJson)
+  for(let i = 0; i < userData.length; i++){
+    name = userData[i].input 
+  }
+  getTweetsFromOneUser(name)
+  
+}))
 
 
 
-// app.get('/api/results', ((req, res) => {
-//   res.send(results)
-//   //console.log(tweetsResults)
+
+
+
+
+
+// app.post('/api/post', ((req, res) => {
+//   const responseJson = JSON.parse(req.body.form)
+//   userData.push(responseJson)
+//   for(let i = 0; i < userData.length; i++){
+//     return userData[i].input
+//   }
+//   return res.send('Received POST Request')
 // }))
+
+
+// axios.get('/api/post')
+//   .then(res => console.log(res))
+//   .catch(err => console.log(err))
+ 
+
+
 
 
  
