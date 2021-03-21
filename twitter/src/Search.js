@@ -41,22 +41,23 @@ const characters = [
 
 const Search = (props) => {
   const [input, setInput] = useState('');
-  const [people, setPeople] = useState([]);
+  const [user, setUser] = useState([]);
 
-  // const createShowcase = () => {
-  //   setPeople(characters);
-  const createShowcaseData = (data) => {
+
+  const createShowcaseData = (tweets) => {
     let tweetsArray = [];
-    for(let i = 0; i < data.length; i++){
+    for(let i = 0; i < tweets.length; i++){
       const tweet = {
-        'date':data[i].created_at,
-        'id':data[i].id,
-        'text':data[i].text,
-        'name':data[i].user.name, 
-        'userName':data[i].user.screen_name, 
-        'image':data[i].user.profile_image_url
+        'date':tweets[i].created_at,
+        'id':tweets[i].id,
+        'text':tweets[i].text,
+        'name':tweets[i].user.name, 
+        'userName':tweets[i].user.screen_name, 
+        'image':tweets[i].user.profile_image_url
       }
     tweetsArray.push(tweet)
+    setUser(...tweetsArray)
+    console.log(user)
 
     }
   }
@@ -74,7 +75,11 @@ const Search = (props) => {
     axios.post('/api/post',options)
     .then(data => console.log(data))
     .catch(err => console.log(err))
+
+  
   }
+
+ 
 
   
 
@@ -89,7 +94,7 @@ const Search = (props) => {
         <button type='submit' className='btn btn-dark'>Content</button>
       </div>
     </form>
-     <Showcase people={people}/>
+     {/* <Showcase /> */}
       
       
     </div>

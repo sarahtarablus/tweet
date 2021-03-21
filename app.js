@@ -4,6 +4,7 @@ path = require('path'),
 app = express(),
 axios = require('axios');
 bodyParser = require('body-parser');
+fs = require('fs');
 
 
 app.use('/', express.static(path.join(__dirname, 'twitter','build')));
@@ -66,9 +67,16 @@ const getTweetsFromOneUser = async (username) => {
      .then(res => getTweets(res))
      .then(res => console.log(res))
      .catch(err => console.log(err))
-     app.get('/api/userTweets', ((req, res) => {
-      res.send(userTweets)
-    }))  
+    //  app.get('/api/userTweets', ((req, res) => {
+    //   res.send(userTweets)
+    // })) 
+    let stringifiedUserTweets = JSON.stringify(userTweets, null, 2);
+
+    fs.writeFile('tweets.json', stringifiedUserTweets, (err) => {
+      if(err) throw err;
+      console.log('Data writte in file')
+    })
+
   } catch (err) {
     console.log(err)
   }
@@ -87,8 +95,12 @@ app.post('/api/post', ((req, res) => {
   let name;
   for(let i = 0; i < userData.length; i++){
     name = userData[i].input 
-  }
- getTweetsFromOneUser(name);  
+  }  
+  getTweetsFromOneUser(name); 
+  // app.get('/api/user', ((req, res) => {
+  //   res.send
+  // }))
+  
 }))
 
 
