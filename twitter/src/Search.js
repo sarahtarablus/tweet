@@ -46,8 +46,18 @@ const Search = (props) => {
   // const createShowcase = () => {
   //   setPeople(characters);
   const createShowcaseData = (data) => {
+    let tweetsArray = [];
     for(let i = 0; i < data.length; i++){
-      data[i]
+      const tweet = {
+        'date':data[i].created_at,
+        'id':data[i].id,
+        'text':data[i].text,
+        'name':data[i].user.name, 
+        'userName':data[i].user.screen_name, 
+        'image':data[i].user.profile_image_url
+      }
+    tweetsArray.push(tweet)
+
     }
   }
   
