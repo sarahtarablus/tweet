@@ -26,11 +26,20 @@ const Search = (props) => {
     }
   }
   
+
+  // const getTweets = async (res) => {
+  //   if(res.data === "Request received"){
+  //     console.log('Done')
+  //     await axios.get('/api/post')
+  //     .then(res => console.log(res))
+  //     .catch(err => console.log(err))
+  //   }
+  //  }
   
   
     
    const getUser = async () => {
-      try{
+    try{
         const options = {
           headers: {
             ContentType: 'application/json'
@@ -39,19 +48,16 @@ const Search = (props) => {
             input
           })
         }
-      // const tweets = await axios.get('/api/user')
-      //  .then(res => console.log(res))
-      //  .catch(err => console.log(err))
-      const name = await axios.post('/api/post',options)
+      
+      const name = await axios.post('/api',options)
        .then(data => console.log(data))
        .catch(err => console.log(err))
      
-    
-      
-      } catch (err) {
+    } catch (err) {
         console.log(err)
-      }
+    }
    }
+
  
 
   return (

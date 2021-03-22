@@ -5,16 +5,18 @@ import axios from 'axios';
 const Random = (props) => {
   const [initState, setInitState] = useState({});
 
-  const getAndy = () => {
-    axios.get('/api/userTweets')
-      .then(res => {
-        const response = res.data;
-        setInitState((prev) => ({
-          ...prev,
-          response
-        }))
-        console.log(initState)
-      })      
+  const getAndy = async () => {
+  
+    await axios.get('/api')
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+        // const response = res.data;
+        // setInitState((prev) => ({
+        //   ...prev,
+        //   response
+        // }))
+        //console.log(initState)
+            
     }
   
   return (
