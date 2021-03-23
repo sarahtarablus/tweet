@@ -1,6 +1,7 @@
-{"url":"https://api.twitter.com/labs/2/users/by?usernames=elon","_id":"5yDUjTkYoXaXvFBS"}
-{"input":"sara","_id":"LKzoIvI01U2nnhM3"}
-{"input":"sara","_id":"caCCbbA3NAXGuT4e"}
-{"input":"sara","_id":"iWi5LR7W7SzMnAfL"}
-{"input":"sara","_id":"rYLCvUqfLufWQRMp"}
-{"input":"giulia","_id":"t1dH8Sdqp8nRZEFe"}
+{"url":"https://api.twitter.com/labs/2/users/by?usernames=andysterks","_id":"9EalgNFgYgzj1CpB"}
+{"$$deleted":true,"_id":"9EalgNFgYgzj1CpB"}
+{"url":"https://api.twitter.com/labs/2/users/by?usernames=elonmusk","_id":"PSHc9UfovSOx0PHq"}
+{"$$deleted":true,"_id":"PSHc9UfovSOx0PHq"}
+{"url":"https://api.twitter.com/labs/2/users/by?usernames=giulia","_id":"Hyf4fXvSDDaoy4dp"}
+{"$$deleted":true,"_id":"Hyf4fXvSDDaoy4dp"}
+{"url":"https://api.twitter.com/labs/2/users/by?usernames=gordonramsay","_id":"2pEiojaWMORBh3vu"}

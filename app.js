@@ -10,7 +10,7 @@ bodyParser = require('body-parser');
 
 const database = new Datastore('username.db');
 database.loadDatabase();
-//database.insert({name: 'sara'})
+
 
 
 app.use('/', express.static(path.join(__dirname, 'twitter','build')));
@@ -30,6 +30,7 @@ const getId = (res) => {
 
 const getTweets = (res) => {
   const tweets = res.data;
+  console.log(tweets)
   let tweetsArray = [];
   for(let i = 0; i < tweets.length; i++){
     const tweet = {
@@ -38,18 +39,13 @@ const getTweets = (res) => {
                    'text':tweets[i].text,
                    'name':tweets[i].user.name, 
                    'userName':tweets[i].user.screen_name, 
-                   'image':tweets[i].user.profile_image_url
+                   'image':tweets[i].user.profile_image_url,
+                   'likes':tweets[i].favorite_count,
+                   'retweets':tweets[i].retweet_count
                   } 
     tweetsArray.push(tweet)      
   } 
   return(tweetsArray) 
-}
-
-
-
-const createUrl = (name) => {
-  const endpointUrl = `https://api.twitter.com/labs/2/users/by?usernames=${name}`
-  return endpointUrl
 }
 
 
@@ -73,7 +69,6 @@ const getTweetsFromOneUser = async (username) => {
      .catch(err => console.log('Error' + err))
     const userTweets = await axios.get(userUrl, headers)
      .then(res => getTweets(res))
-     .then(res => console.log(res))
      .catch(err => console.log(err))
   } catch (err) {
     console.log(err)
@@ -98,10 +93,8 @@ app.post('/api', ((req, res) => {
   for(let i = 0; i < userData.length; i++){
     username = userData[i].input 
   } 
+  database.remove({}, {multi: true}, ((err, data) => {}))
   database.insert({url: `https://api.twitter.com/labs/2/users/by?usernames=${username}`})
-
-
-  //getTweetsFromOneUser(name)
 
   res.json({
     sataus: 'Request received'
@@ -109,60 +102,27 @@ app.post('/api', ((req, res) => {
 }))
 
 
-const username =  database.find({}, (err, data) => {
-  if(err) {
-    console.log(err)//res.end()
-    return;
-  }
-  console.log(data[0].url)
-    return data[0].url
-  })
 
-  
-
-
-app.get('/api', async (req, res) => {
+app.get('/api', (req, res) => {
  
-  // const username =  database.find({}, (err, data) => {
-  //   if(err) {
-  //     console.log(err)//res.end()
-  //     return;
-  //   }
-  //   console.log(data[0].url)
-  //     return data[0].url
-  //   })
-   
+ database.find({}, async (err, data) => {
+    if(err) {
+      res.send(err)
+      return;
+    }
+    const url = data[data.length - 1].url;
+    const userUrl = await axios.get(url, headers)
+    .then(res => getId(res))
+    .catch(err => console.log('Error' + err))
+    const userTweets = await axios.get(userUrl, headers)
+    .then(res => getTweets(res))
+    .catch(err => console.log(err))
+
+    res.send(userTweets)
+    //console.log(userTweets)
+ })
+})   
     
-    //const username = request.params.username;
-    // const url = `https://api.twitter.com/labs/2/users/by?usernames=${username}`//createUrl(username)
-    //   const userUrl = await axios.get(url, headers)
-    //    .then(res => getId(res))
-    //    .catch(err => console.log('Error' + err))
-    //   const userTweets = await axios.get(userUrl, headers)
-    //    .then(res => getTweets(res))
-    //    .catch(err => console.log(err))
-   
-    // res.send(userTweets)
-    // console.log(userTweets)
-    
-    // res.json(data)
-  })
-
-  //res.send(username)
-
-//   const username = request.params.username;
-//   const url = `https://api.twitter.com/labs/2/users/by?usernames=${username}`//createUrl(username)
-//     const userUrl = await axios.get(url, headers)
-//      .then(res => getId(res))
-//      .catch(err => console.log('Error' + err))
-//     const userTweets = await axios.get(userUrl, headers)
-//      .then(res => getTweets(res))
-//      .catch(err => console.log(err))
- 
-//   res.send(userTweets)
-//   console.log(userTweets)
-// })
-
 
 
 

@@ -1,44 +1,15 @@
 import React from 'react';
-import {useState} from 'react';
-import Showcase from './Showcase.js';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faRetweet, faHeart} from '@fortawesome/free-solid-svg-icons';
 
 const Search = (props) => {
   const [input, setInput] = useState('');
-  const [user, setUser] = useState([]);
+  const [userTweets, setUserTweets] = useState([]);
 
-
-  const createShowcaseData = (tweets) => {
-    let tweetsArray = [];
-    for(let i = 0; i < tweets.length; i++){
-      const tweet = {
-        'date':tweets[i].created_at,
-        'id':tweets[i].id,
-        'text':tweets[i].text,
-        'name':tweets[i].user.name, 
-        'userName':tweets[i].user.screen_name, 
-        'image':tweets[i].user.profile_image_url
-      }
-    tweetsArray.push(tweet)
-    setUser(...tweetsArray)
-    console.log(user)
-
-    }
-  }
-  
-
-  // const getTweets = async (res) => {
-  //   if(res.data === "Request received"){
-  //     console.log('Done')
-  //     await axios.get('/api/post')
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err))
-  //   }
-  //  }
-  
-  
-    
-   const getUser = async () => {
+ 
+  const getUser = async () => {
     try{
         const options = {
           headers: {
@@ -49,35 +20,51 @@ const Search = (props) => {
           })
         }
       
-      const name = await axios.post('/api',options)
-       .then(data => console.log(data))
-       .catch(err => console.log(err))
-     
-    } catch (err) {
+        const name = await axios.post('/api',options)
+         .then(data => data)
+         .catch(err => console.log(err))
+        const tweets = await axios.get('/api')
+         .then(res => setUserTweets([...res.data]))
+         .catch(err => console.log(err))
+         console.log(userTweets)
+    }catch (err) {
         console.log(err)
     }
-   }
+  }
+
 
  
+ 
 
-  return (
-    <div className='search'>
+return (
+  <div className='search'>
     <form>
       <div className='form-group'>
-        <input className='form-control-lg' onChange={({target}) => setInput(target.value)} value={input} type='text' placeholder='search' required></input>
+        <input className='form-control-lg' onChange={({target}) => setInput(target.value)}  value={input} type='text' placeholder='search' required></input>
       </div>
       <div className='buttons'>
         <button onClick={getUser} type='submit' className='btn btn-dark'>Username</button>
         <button type='submit' className='btn btn-dark'>Content</button>
       </div>
     </form>
-     {/* <Showcase /> */}
-      
-      
-    </div>
+    {userTweets.map((user) => {
+      return <div key={user.id} className="showcase">
+      <div className="media"> 
+     <img src={user.image} className="rounded-circle mr-3" alt="Image"/>
+     <div className="media-body">
+     <h5 className="mt-0">{user.name}{user.userName} <small><i>{user.date}</i></small></h5>
+     <p>{user.text}</p>
+     <div className='icons'>
+     <div className='icon'><FontAwesomeIcon icon={faRetweet}/>{user.retweets}</div>
+     <div className='icon'><FontAwesomeIcon icon={faHeart}/>{user.likes}</div>
+     </div>
+     </div> 
+     </div> 
+     </div> 
+    })}
+  </div>
+  )}
   
-  )
-}
 
 
 export default Search;
