@@ -62,12 +62,22 @@ a:hover {
 }
 
 
-/* .search {
+.search {
   width: 100vw;
   height: 100vh;
   background-image: linear-gradient(to right, rgb(141, 8, 8) , rgb(162, 0, 255));
   background-size: cover; 
-} */
+}
+
+
+
+.card {
+  margin: 30px;
+  padding: 25px;
+  border-radius: 20px;
+}
+
+
 
 .form-group {
   display: flex;
@@ -93,8 +103,11 @@ a:hover {
 
 .icons {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
+}
 
+.icon {
+  padding-right: 35px;
 }
 
 

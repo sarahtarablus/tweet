@@ -9,9 +9,10 @@ const Search = (props) => {
   const [userTweets, setUserTweets] = useState([]);
 
  
-  const getUser = async () => {
+  const getUser = async (url) => {
+    let urls = url;
     try{
-        const options = {
+      const options = {
           headers: {
             ContentType: 'application/json'
           },
@@ -20,13 +21,12 @@ const Search = (props) => {
           })
         }
       
-        const name = await axios.post('/api',options)
+        const name = await axios.post(urls, options)
          .then(data => data)
          .catch(err => console.log(err))
-        const tweets = await axios.get('/api')
+        const tweets = await axios.get(urls)
          .then(res => setUserTweets([...res.data]))
          .catch(err => console.log(err))
-         console.log(userTweets)
     }catch (err) {
         console.log(err)
     }
@@ -40,27 +40,28 @@ return (
   <div className='search'>
     <form>
       <div className='form-group'>
-        <input className='form-control-lg' onChange={({target}) => setInput(target.value)}  value={input} type='text' placeholder='search' required></input>
+        <input className='form-control-lg bg-light mt-5' onChange={({target}) => setInput(target.value)}  value={input} type='text' placeholder='search' required></input>
       </div>
-      <div className='buttons'>
-        <button onClick={getUser} type='submit' className='btn btn-dark'>Username</button>
-        <button type='submit' className='btn btn-dark'>Content</button>
+      <div className='buttons form-group'>
+        <button onClick={() => getUser('/api/users')} type='submit' className='btn btn-dark mx-1'>Username</button>
+        <button onClick={() => getUser('/api/content')} type='submit' className='btn btn-dark mx-1'>Content</button>
       </div>
     </form>
     {userTweets.map((user) => {
-      return <div key={user.id} className="showcase">
-      <div className="media"> 
-     <img src={user.image} className="rounded-circle mr-3" alt="Image"/>
-     <div className="media-body">
-     <h5 className="mt-0">{user.name}{user.userName} <small><i>{user.date}</i></small></h5>
+      return <div  key={user.id} className='d-flex align-items-center flex-column'><div className='card shadow-lg showcase'>
+      <div className='media'> 
+     <img src={user.image} className='rounded-circle mr-3' alt='Image'/>
+     <div className='media-body'>
+     <h5 className='mt-0'>{user.name}   <small className='text-secondary'>@{user.userName}</small>  <small className='text-secondary font-weight-light'><i>{user.date}</i></small></h5>
      <p>{user.text}</p>
      <div className='icons'>
-     <div className='icon'><FontAwesomeIcon icon={faRetweet}/>{user.retweets}</div>
-     <div className='icon'><FontAwesomeIcon icon={faHeart}/>{user.likes}</div>
+     <div className='icon text-secondary'><FontAwesomeIcon icon={faRetweet}/>{user.retweets}</div>
+     <div className='icon text-secondary'><FontAwesomeIcon icon={faHeart}/>{user.likes}</div>
      </div>
      </div> 
      </div> 
      </div> 
+     </div>
     })}
   </div>
   )}
@@ -69,40 +70,4 @@ return (
 
 export default Search;
 
-
-
-
-// const characters = [
-//   {
-//    img: ('/images/pic1.jpg'),
-//    name: 'Jon Doe',
-//    username: '@jondoe',
-//    date: 'Mon Mar 09 13:35:09',
-//    content: 'Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user'
-//   },
- 
-//   {
-//    img: '/images/pic1.jpg',
-//    name: 'Brad Davis',
-//    username: '@braddavis',
-//    date: 'Mon Mar 09 13:35:09',
-//    content: 'Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user'
-//   },
- 
-//   {
-//    img: '/images/pic1.jpg',
-//    name: 'Mona Diaz',
-//    username: '@monadiaz',
-//    date: 'Mon Mar 09 13:35:09',
-//    content: 'Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user'
-//   },
- 
-//   {
-//    img: '/images/pic1.jpg',
-//    name: 'Laila Rally',
-//    username: '@lailarally',
-//    date: 'Mon Mar 09 13:35:09',
-//    content: 'Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user,Hello my name is Jon and I am a new user'
-//   }
-//  ]
 
