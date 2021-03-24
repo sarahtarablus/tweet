@@ -167,13 +167,13 @@ const getUser = async (url, res) => {
 
 const url1 = `https://api.twitter.com/labs/2/users/by?usernames=adrianyounge`;
 const url2 = `https://api.twitter.com/labs/2/users/by?usernames=gordonramsay`;
-// const url3 = `https://api.twitter.com/labs/2/users/by?usernames=berlinphil`;
+const url3 = `https://api.twitter.com/labs/2/users/by?usernames=google`;
 const url4 = `https://api.twitter.com/labs/2/users/by?usernames=elonmusk`;
 const url5 = `https://api.twitter.com/labs/2/users/by?usernames=jordanbpeterson`;
 
  getUser(url1);
  getUser(url2); 
- //getUser(url3);
+ getUser(url3);
  getUser(url4);
  getUser(url5);
 

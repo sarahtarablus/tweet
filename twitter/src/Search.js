@@ -9,7 +9,7 @@ const Search = (props) => {
   const [userTweets, setUserTweets] = useState([]);
 
  
-  const getUser = async (url) => {
+const getUser = async (url) => {
     let urls = url;
     try{
       const options = {
@@ -30,7 +30,7 @@ const Search = (props) => {
     }catch (err) {
         console.log(err)
     }
-  }
+}
 
 
  
@@ -48,7 +48,7 @@ return (
       </div>
     </form>
     {userTweets.map((user) => {
-      return <div  key={user.id} className='d-flex align-items-center flex-column'><div className='card shadow-lg showcase'>
+      return <div  key={user.id} className='d-flex align-items-center flex-column twitterCard'><div className='card shadow-lg showcase'>
       <div className='media'> 
      <img src={user.image} className='rounded-circle mr-3' alt='Image'/>
      <div className='media-body'>
