@@ -34,24 +34,26 @@ const getTweets = (res) => {
   console.log(tweets)
   let tweetsArray = [];
   for(let i = 0; i < tweets.length; i++){
-
-    for(let j = 0; j < tweets[i].entities.urls.length; j++){
+     const tweetsUrls = tweets[i].entities.urls
+    for(let j = 0; j < tweetsUrls.length; j++){
       const t = tweets[i].entities.urls
       for(let x = 0; x < t.length; x++){
-        console.log(t.display_url)
+        console.log(t[x].display_url)
+        console.log(t[x].expanded_url)
+      
       }
     }
     const tweet = {
-                   'date':tweets[i].created_at,
-                   'id':tweets[i].id,
-                   'text':tweets[i].text,
-                   'urls':tweets[i].entities.urls,
-                   'name':tweets[i].user.name, 
-                   'userName':tweets[i].user.screen_name, 
-                   'image':tweets[i].user.profile_image_url,
-                   'likes':tweets[i].favorite_count,
-                   'retweets':tweets[i].retweet_count
-                  } 
+      'date':tweets[i].created_at,
+      'id':tweets[i].id,
+      'text':tweets[i].text,
+      // 'urls':tweets[i]t[x].entities.urls,
+      'name':tweets[i].user.name, 
+      'userName':tweets[i].user.screen_name, 
+      'image':tweets[i].user.profile_image_url,
+      'likes':tweets[i].favorite_count,
+      'retweets':tweets[i].retweet_count
+     } 
    
     tweetsArray.push(tweet)      
   } 

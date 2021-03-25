@@ -40,6 +40,7 @@ li {
   height: 100vh;
   background-image: url('images/TwitterPic.png');
   background-size: cover; 
+  background-position: center;
   display: flex;
   justify-content: right;
 }
