@@ -5,8 +5,7 @@ const Home = (props) => {
   return (
     <div>
      <div className='home'>
-     <h1 className='display-3 text-white'>FUN TWEETS</h1>
-       <p className='text-white'>Look for your favorite tweets</p>
+       <p className='phrase text-white'>Checkout your favorite tweets</p>
      </div>
     </div>
   )

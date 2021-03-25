@@ -24,12 +24,13 @@ const Random = (props) => {
   // },[])
   useEffect(() => {
     setUsers([...profilesUsers])
-  })
+  }, [])
 
-  const getTweets = async () => {
-    await axios.get('/api')
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+  const getTweets = () => {
+    
+      console.log('yes')
+    
+  }
         // const response = res.data;
         // setInitState((prev) => ({
         //   ...prev,
@@ -37,12 +38,12 @@ const Random = (props) => {
         // }))
         //console.log(initState)
             
-  }
+  
   
   return (
   <div>
    {users.map((user) => {
-    return  <div key={user.id} className="card ran">
+    return  <div key={user.id} onClick={getTweets} className="card ran">
     <h5 className="card-title">{user.name}</h5>
     <small>@{user.userName}</small>
     <img className="card-img-top rounded" src={user.image} alt="image"/>

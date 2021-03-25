@@ -59,12 +59,6 @@ const headers = {
 
 
 
-storeInDatabase = (urls) => {
-  database.remove({}, {multi: true}, ((err, data) => {}))
-  database.insert({url: urls})
-}
-
-
 
 app.post('/api/content', ((req, res) => {
   const responseJson = JSON.parse(req.body.form);
@@ -74,8 +68,9 @@ app.post('/api/content', ((req, res) => {
   for(let i = 0; i < userData.length; i++){
     username = userData[i].input 
   } 
-  storeInDatabase(database,`https://api.twitter.com/1.1/search/tweets.json?q=${username}`)
- 
+  database.remove({}, {multi: true}, ((err, data) => {}))
+  database.insert({url: `https://api.twitter.com/1.1/search/tweets.json?q=${username}`})
+
   res.json({
     sataus: 'Request received'
   }); 
@@ -109,7 +104,8 @@ app.post('/api/users', ((req, res) => {
   for(let i = 0; i < userData.length; i++){
     username = userData[i].input 
   } 
-  storeInDatabase(`https://api.twitter.com/labs/2/users/by?usernames=${username}`)
+  database.remove({}, {multi: true}, ((err, data) => {}))
+  database.insert({url: `https://api.twitter.com/labs/2/users/by?usernames=${username}`})
  
   res.json({
     sataus: 'Request received'
