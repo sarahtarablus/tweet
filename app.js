@@ -31,18 +31,28 @@ const getId = (res) => {
 
 const getTweets = (res) => {
   const tweets = res;
+  console.log(tweets)
   let tweetsArray = [];
   for(let i = 0; i < tweets.length; i++){
+
+    for(let j = 0; j < tweets[i].entities.urls.length; j++){
+      const t = tweets[i].entities.urls
+      for(let x = 0; x < t.length; x++){
+        console.log(t.display_url)
+      }
+    }
     const tweet = {
                    'date':tweets[i].created_at,
                    'id':tweets[i].id,
                    'text':tweets[i].text,
+                   'urls':tweets[i].entities.urls,
                    'name':tweets[i].user.name, 
                    'userName':tweets[i].user.screen_name, 
                    'image':tweets[i].user.profile_image_url,
                    'likes':tweets[i].favorite_count,
                    'retweets':tweets[i].retweet_count
                   } 
+   
     tweetsArray.push(tweet)      
   } 
   return(tweetsArray) 
@@ -130,63 +140,36 @@ app.get('/api/users', ((req, res) => {
  
      res.send(userTweets);
   });
- }));
+}));
 
 
 
 
-const getProfileInfo = (res) => {
-  const response = res;
-  const profile = {
-                   'id':response[0].user.id,
-                   'name':response[0].user.name, 
-                   'userName':response[0].user.screen_name, 
-                   'image':response[0].user.profile_image_url
-                  } 
-  return(profile) 
-}
-
-
-
-
-const getUser = async (url, res) => {
-  const userUrl = await axios.get(url, headers) 
-  .then(res => getId(res))
-  .catch(err => console.log('Error' + '' + err))
-  const userProfile = await axios.get(userUrl, headers)
-  .then(res => getProfileInfo(res.data))
-  .catch(err => console.log(err))
+app.post('/api/random', ((req, res) => {
+  const userId = JSON.parse(req.body.form);
+  console.log(userId)
   database.remove({}, {multi: true}, ((err, data) => {}))
-  databaseProfiles.insert({profile: userProfile})
- }
+  database.insert({url: `https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=200&exclude_replies=true&include_rts=false`})
+ 
+  res.json({
+    sataus: 'Request received'
+    }); 
+}));
 
 
-const url1 = `https://api.twitter.com/labs/2/users/by?usernames=adrianyounge`;
-const url2 = `https://api.twitter.com/labs/2/users/by?usernames=gordonramsay`;
-const url3 = `https://api.twitter.com/labs/2/users/by?usernames=google`;
-const url4 = `https://api.twitter.com/labs/2/users/by?usernames=elonmusk`;
-const url5 = `https://api.twitter.com/labs/2/users/by?usernames=jordanbpeterson`;
-
- getUser(url1);
- getUser(url2); 
- getUser(url3);
- getUser(url4);
- getUser(url5);
-
-
- app.get('/api/profile', ((req, res) => {
-  databaseProfiles.find({}, async (err, data) => {
-    if(err) {
+app.get('/api/random', ((req, res) => {
+  database.find({}, async (err, data) => {
+    if(err){
       res.send(err)
       return;
     }
-  const profiles = [data[0], data[1], data[2], data[3], data[4]];
-  let profilesArray = [];
-
-  for(let i = 0; i < profiles.length; i++){
-     profilesArray.push(profiles[i].profile)
-  }
-  res.send(profilesArray)
+    const url = data[data.length - 1].url;
+    console.log(url)
+    const userTweets = await axios.get(url, headers)
+     .then(res => getTweets(res.data))
+     .then(res => res[Math.floor((Math.random() * res.length) + 1)])
+     .catch(err => console.log(err))
+    res.send(userTweets)
   })
 }))
 
