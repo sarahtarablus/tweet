@@ -23,6 +23,7 @@ const Random = (props) => {
 
   const getTweets = async (e) => {
     const userId = e.currentTarget.dataset.div_id
+    console.log(userId)
     try{
         const options = {
             headers: {
@@ -36,7 +37,8 @@ const Random = (props) => {
            .then(data => console.log(data))
            .catch(err => console.log(err))
           const randomtweet = await axios.get('/api/random')
-           .then(res => setTweets({...res.data}))
+           //.then(res => setTweets({...res.data}))
+           .then(res => console.log(res.data))
            .catch(err => console.log(err))
       }catch (err) {
           console.log(err)

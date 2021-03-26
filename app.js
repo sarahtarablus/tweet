@@ -19,7 +19,7 @@ const getId = (res) => {
   let user = res.data.data;
   for(let i = 0; i < user.length; i++){
     let userId = user[i].id
-    let url = `https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=10&exclude_replies=true&include_rts=false`
+    let url = `https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=200&exclude_replies=true&include_rts=false`
     return url
   }
 }
@@ -30,11 +30,6 @@ const getTweets = (res) => {
   const tweets = res;
   let tweetsArray = [];
   for(let i = 0; i < tweets.length; i++){
-    //  const tweetsUrls = tweets[i].entities.urls
-    // for(let j = 0; j < tweetsUrls.length; j++){
-    //   const t = tweets[i].entities.urls
-    //   for(let x = 0; x < t.length; x++){
-    //     console.log(t[x].expanded_url)
         const tweet = {
           'date':tweets[i].created_at,
           'id':tweets[i].id,
@@ -45,7 +40,7 @@ const getTweets = (res) => {
           'likes':tweets[i].favorite_count,
           'retweets':tweets[i].retweet_count
          } 
-         console.log(tweet)
+         //console.log(tweet)
          tweetsArray.push(tweet)   
          return(tweetsArray) 
       }
@@ -55,10 +50,6 @@ const getTweets = (res) => {
    
        
   
-
-
-
-
 const headers = {
   headers: {
     Authorization: `Bearer ${process.env.BEARER_TOKEN}`
@@ -136,9 +127,8 @@ app.get('/api/users', ((req, res) => {
      const userTweets = await axios.get(userUrl, headers)
      .then(res => getTweets(res.data))
      .catch(err => console.log(err))
- 
-     res.send(userTweets);
-  });
+    res.send(userTweets)
+   });
 }));
 
 
@@ -166,8 +156,9 @@ app.get('/api/random', ((req, res) => {
     console.log(url)
     const userTweets = await axios.get(url, headers)
      .then(res => getTweets(res.data))
-     .then(res => res[Math.floor((Math.random() * res.length) + 1)])
+     .then(res => res)//[Math.floor((Math.random() * res.length) + 1)])
      .catch(err => console.log(err))
+     console.log(userTweets)
     res.send(userTweets)
   })
 }))

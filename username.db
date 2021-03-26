@@ -1,3 +1,1 @@
-{"url":"https://api.twitter.com/1.1/search/tweets.json?q=andysterks&tweet_mode=extended","_id":"ZGF4hBRWoa6YhHJN"}
-{"$$deleted":true,"_id":"ZGF4hBRWoa6YhHJN"}
-{"url":"https://api.twitter.com/1.1/search/tweets.json?q=andysterks","_id":"UinFarSnklb4F53d"}
+{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=43298395&count=200&exclude_replies=true&include_rts=false","_id":"kc1rfVjvHP2s7aJK"}
