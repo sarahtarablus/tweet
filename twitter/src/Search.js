@@ -53,7 +53,7 @@ return (
      <img src={user.image} className='rounded-circle mr-3' alt='Image'/>
      <div className='media-body'>
      <h5 className='mt-0'>{user.name}   <small className='text-secondary'>@{user.userName}</small>  <small className='text-secondary font-weight-light'><i>{user.date}</i></small></h5>
-     <p>{user.text}</p>
+     <p lan="en">{user.text}</p>
      <div className='icons'>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faRetweet}/>{user.retweets}</div>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faHeart}/>{user.likes}</div>

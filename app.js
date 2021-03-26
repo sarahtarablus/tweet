@@ -9,9 +9,6 @@ bodyParser = require('body-parser');
 const database = new Datastore('username.db');
 database.loadDatabase();
 
-const databaseProfiles = new Datastore('users.db');
-databaseProfiles.loadDatabase();
-
 
 app.use('/', express.static(path.join(__dirname, 'twitter','build')));
 app.use(bodyParser.json({extended: true}));
@@ -31,34 +28,34 @@ const getId = (res) => {
 
 const getTweets = (res) => {
   const tweets = res;
-  console.log(tweets)
   let tweetsArray = [];
   for(let i = 0; i < tweets.length; i++){
-     const tweetsUrls = tweets[i].entities.urls
-    for(let j = 0; j < tweetsUrls.length; j++){
-      const t = tweets[i].entities.urls
-      for(let x = 0; x < t.length; x++){
-        console.log(t[x].display_url)
-        console.log(t[x].expanded_url)
-      
+    //  const tweetsUrls = tweets[i].entities.urls
+    // for(let j = 0; j < tweetsUrls.length; j++){
+    //   const t = tweets[i].entities.urls
+    //   for(let x = 0; x < t.length; x++){
+    //     console.log(t[x].expanded_url)
+        const tweet = {
+          'date':tweets[i].created_at,
+          'id':tweets[i].id,
+          'text':tweets[i].text,
+          'name':tweets[i].user.name, 
+          'userName':tweets[i].user.screen_name, 
+          'image':tweets[i].user.profile_image_url,
+          'likes':tweets[i].favorite_count,
+          'retweets':tweets[i].retweet_count
+         } 
+         console.log(tweet)
+         tweetsArray.push(tweet)   
+         return(tweetsArray) 
       }
+    
     }
-    const tweet = {
-      'date':tweets[i].created_at,
-      'id':tweets[i].id,
-      'text':tweets[i].text,
-      // 'urls':tweets[i]t[x].entities.urls,
-      'name':tweets[i].user.name, 
-      'userName':tweets[i].user.screen_name, 
-      'image':tweets[i].user.profile_image_url,
-      'likes':tweets[i].favorite_count,
-      'retweets':tweets[i].retweet_count
-     } 
    
-    tweetsArray.push(tweet)      
-  } 
-  return(tweetsArray) 
-}
+   
+       
+  
+
 
 
 

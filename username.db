@@ -1,3 +1,3 @@
-{"url":"https://api.twitter.com/labs/2/users/by?usernames=berlinphil","_id":"4Od77hRBc04GxyMY"}
-{"$$deleted":true,"_id":"4Od77hRBc04GxyMY"}
-{"url":"https://api.twitter.com/labs/2/users/by?usernames=berlinphil","_id":"UXj3xYSIhGwyOaMF"}
+{"url":"https://api.twitter.com/1.1/search/tweets.json?q=andysterks&tweet_mode=extended","_id":"ZGF4hBRWoa6YhHJN"}
+{"$$deleted":true,"_id":"ZGF4hBRWoa6YhHJN"}
+{"url":"https://api.twitter.com/1.1/search/tweets.json?q=andysterks","_id":"UinFarSnklb4F53d"}
