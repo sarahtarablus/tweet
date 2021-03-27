@@ -37,8 +37,7 @@ const Random = (props) => {
            .then(data => console.log(data))
            .catch(err => console.log(err))
           const randomtweet = await axios.get('/api/random')
-           //.then(res => setTweets({...res.data}))
-           .then(res => console.log(res.data))
+           .then(res => setTweets({...res.data}))
            .catch(err => console.log(err))
       }catch (err) {
           console.log(err)
@@ -54,6 +53,7 @@ const Random = (props) => {
     <img className="card-img-top rounded" src={user.image} alt="image"/>
     </div>
    })} 
+   {!tweets ? <div></div> : 
     <div  key={tweets.id} className='d-flex align-items-center flex-column twitterCard'><div className='card shadow-lg showcase'>
       <div className='media'> 
      <img src={tweets.image} className='rounded-circle mr-3' alt='Image'/>
@@ -68,6 +68,7 @@ const Random = (props) => {
      </div> 
      </div> 
      </div>
+}
   </div>
  )}
 

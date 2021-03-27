@@ -1,1 +1,3 @@
-{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=43298395&count=200&exclude_replies=true&include_rts=false","_id":"kc1rfVjvHP2s7aJK"}
+{"url":"https://api.twitter.com/labs/2/users/by?usernames=andysterks","_id":"sfzzuDYRe9FwMUlD"}
+{"$$deleted":true,"_id":"sfzzuDYRe9FwMUlD"}
+{"url":"https://api.twitter.com/labs/2/users/by?usernames=andysterks","_id":"pbrGFEsgBq9QkhRY"}
