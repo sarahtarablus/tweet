@@ -16,9 +16,9 @@ class App extends Component {
         <div  className='navbar navbar-expand-lg navbar-dark bg-dark px-5 py-4'> 
         <h1 className='title display-4 text-white'>TWITTER SHOWCASE</h1>
           <ul className='navbar-nav'>
-            <li className='nav-item'><NavLink className='nav-link' to ='/'>Home</NavLink></li>
-            <li className='nav-item'><NavLink className='nav-link' to ='/Search'>Search</NavLink></li>
-            <li className='nav-item'><NavLink className='nav-link' to ='/Random'>Random</NavLink></li>
+            <li className='nav-item'><NavLink className='nav-link' to ='/'>HOME</NavLink></li>
+            <li className='nav-item'><NavLink className='nav-link' to ='/Search'>SEARCH</NavLink></li>
+            <li className='nav-item'><NavLink className='nav-link' to ='/Random'>RANDOM</NavLink></li>
           </ul>
         </div>
           <div>

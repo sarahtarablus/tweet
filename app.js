@@ -25,16 +25,30 @@ const getId = (res) => {
 }
 
 
+const getDay = (date) => {
+  let day = new Date(date).getDay()
+  return isNaN(day) ? null : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][day]
+}
+
+const getMonth = (date) => {
+  let month = (new Date(date).getMonth())
+  return isNaN(month) ? null : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month]
+}
+
 
 const getTweets = async (res) => {
   const tweets = res;
   let tweetsArray = [];
-  // for(let j = 0; j < tweets.length; j++){
-  //   //console.log(tweets[j].user.entities)
-  //   let t = tweets[j];
-  //   console.log(t.id_str)
-  //  tweets[j] = await axios.get(`https://api.twitter.com/1.1/statuses/show.json?id=${t.id_str}`, headers)
+ 
    for(let i = 0; i < tweets.length; i++){
+      let tweetDate = new Date(tweets[i].created_at);
+      let day = getDay(tweets[i].created_at);
+      let date = tweetDate.getDate();
+      let month = getMonth(tweets[i].created_at);
+    
+   
+    tweets[i].created_at = `${day} ${month} ${date}`
+ 
      const tweet = {
       'date':tweets[i].created_at,
       'id':tweets[i].id,
@@ -134,15 +148,15 @@ app.get('/api/users', ((req, res) => {
      .then(res => getId(res))
      .catch(err => console.log('Error' + '' + err))
      const userTweets = await axios.get(userUrl, headers)
-     .then(res => res.data)
+     .then(res => getTweets(res.data))
      .catch(err => console.log(err))
      
-     for(let i = 0; i < userTweets.length; i++){
-      console.log(userTweets[i].id_str)
-      let tweet = userTweets[i];
-      userTweets[i] = await axios.get(`https://api.twitter.com/1.1/statuses/show.json?id=${tweet.id}`, headers)
-      //  .then(res => console.log(res))
-     }
+    //  for(let i = 0; i < userTweets.length; i++){
+    //   console.log(userTweets[i].id_str)
+    //   let tweet = userTweets[i];
+    //   userTweets[i] = await axios.get(`https://api.twitter.com/1.1/statuses/show.json?id=${tweet.id}`, headers)
+    //  .then(res => console.log(res))
+    //  }
     res.send(userTweets)
   
   }catch(err) {

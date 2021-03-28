@@ -43,16 +43,16 @@ return (
         <input className='form-control-lg bg-light mt-5' onChange={({target}) => setInput(target.value)}  value={input} type='text' placeholder='search' required></input>
       </div>
       <div className='buttons form-group'>
-        <button onClick={() => getUser('/api/users')} type='submit' className='btn btn-dark mx-1'>Username</button>
-        <button onClick={() => getUser('/api/content')} type='submit' className='btn btn-dark mx-1'>Content</button>
+        <button onClick={() => getUser('/api/users')} type='submit' className='btn btn-dark mx-1 mb-5'>Username</button>
+        <button onClick={() => getUser('/api/content')} type='submit' className='btn btn-dark mx-1 mb-5'>Content</button>
       </div>
     </form>
     {userTweets.map((user) => {
-      return <div  key={user.id} className='d-flex align-items-center flex-column twitterCard'><div className='card shadow-lg showcase'>
+      return <div  key={user.id} className='d-flex align-items-center  flex-column twitterCard'><div className='card showcase'>
       <div className='media'> 
      <img src={user.image} className='rounded-circle mr-3' alt='Image'/>
      <div className='media-body'>
-     <h5 className='mt-0'>{user.name}   <small className='text-secondary'>@{user.userName}</small>  <small className='text-secondary font-weight-light'><i>{user.date}</i></small></h5>
+     <h5 className='mt-0'>{user.name}   <small className='text-secondary'>@{user.userName}</small><br></br> <small className='text-secondary'><i>{user.date}</i></small></h5>
      <p lan="en">{user.text}</p>
      <div className='icons'>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faRetweet}/>{user.retweets}</div>

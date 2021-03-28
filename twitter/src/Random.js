@@ -19,11 +19,13 @@ const Random = (props) => {
  
   useEffect(() => {
     setUsers([...profilesUsers])
+    console.log(tweets)
   }, [])
+
+  
 
   const getTweets = async (e) => {
     const userId = e.currentTarget.dataset.div_id
-    console.log(userId)
     try{
         const options = {
             headers: {
@@ -45,20 +47,19 @@ const Random = (props) => {
   }
  
   return (
-  <div>
+  <div className='random'>
    {users.map((user) => {
     return  <div key={user.id} data-div_id={user.id} data-div_name={user.name} onClick={getTweets} className="card ran">
-    <h5 className="card-title">{user.name}</h5>
-    <small>@{user.userName}</small>
-    <img className="card-img-top rounded" src={user.image} alt="image"/>
+    <h5 className="card-title">{user.name}</h5><small>@{user.userName}</small>
+    <img className="rounded-circle px-5" src={user.image} alt="image"/>
     </div>
    })} 
-   {!tweets ? <div></div> : 
-    <div  key={tweets.id} className='d-flex align-items-center flex-column twitterCard'><div className='card shadow-lg showcase'>
+   {Object.keys(tweets).length === 0 ? <div></div> : 
+    <div  key={tweets.id} className='d-flex align-items-center flex-column'><div className='card showcase cbc'>
       <div className='media'> 
      <img src={tweets.image} className='rounded-circle mr-3' alt='Image'/>
      <div className='media-body'>
-     <h5 className='mt-0'>{tweets.name}   <small className='text-secondary'>@{tweets.userName}</small>  <small className='text-secondary font-weight-light'><i>{tweets.date}</i></small></h5>
+     <h5 className='mt-0'>{tweets.name}   <small className='text-secondary'>@{tweets.userName}</small> <br></br>  <small className='text-secondary'><i>{tweets.date}</i></small></h5>
      <p>{tweets.text}</p>
      <div className='icons'>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faRetweet}/>{tweets.retweets}</div>
