@@ -49,13 +49,13 @@ const Random = (props) => {
   return (
   <div className='random'>
    {users.map((user) => {
-    return  <div key={user.id} data-div_id={user.id} data-div_name={user.name} onClick={getTweets} className="card ran">
+    return  <div key={user.id} data-div_id={user.id} data-div_name={user.name} onClick={getTweets} className="card ran shadow-lg">
     <h5 className="card-title">{user.name}</h5><small>@{user.userName}</small>
     <img className="rounded-circle px-5" src={user.image} alt="image"/>
     </div>
    })} 
    {Object.keys(tweets).length === 0 ? <div></div> : 
-    <div  key={tweets.id} className='d-flex align-items-center flex-column'><div className='card showcase cbc'>
+    <div  key={tweets.id} className='d-flex align-items-center flex-column'><div className='card showcase shadow-lg'>
       <div className='media'> 
      <img src={tweets.image} className='rounded-circle mr-3' alt='Image'/>
      <div className='media-body'>

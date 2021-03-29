@@ -40,15 +40,15 @@ return (
   <div className='search'>
     <form>
       <div className='form-group'>
-        <input className='form-control-lg bg-light mt-5' onChange={({target}) => setInput(target.value)}  value={input} type='text' placeholder='search' required></input>
+        <input className='form-control-lg bg-light mt-5 shadow-lg' onChange={({target}) => setInput(target.value)}  value={input} type='text' placeholder='search' required></input>
       </div>
       <div className='buttons form-group'>
-        <button onClick={() => getUser('/api/users')} type='submit' className='btn btn-dark mx-1 mb-5'>Username</button>
-        <button onClick={() => getUser('/api/content')} type='submit' className='btn btn-dark mx-1 mb-5'>Content</button>
+        <button onClick={() => getUser('/api/users')} type='submit' className='btn btn-dark mx-1 mb-5 shadow-lg'>Username</button>
+        <button onClick={() => getUser('/api/content')} type='submit' className='btn btn-dark mx-1 mb-5 shadow-lg'>Content</button>
       </div>
     </form>
     {userTweets.map((user) => {
-      return <div  key={user.id} className='d-flex align-items-center  flex-column twitterCard'><div className='card showcase'>
+      return <div  key={user.id} className='d-flex align-items-center  flex-column twitterCard'><div className='card showcase shadow-lg'>
       <div className='media'> 
      <img src={user.image} className='rounded-circle mr-3' alt='Image'/>
      <div className='media-body'>
