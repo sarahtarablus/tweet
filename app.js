@@ -36,17 +36,59 @@ const getMonth = (date) => {
 }
 
 
+// const getTweets = async (res) => {
+//   const tweets = res;
+//   let tweetsArray = [];
+ 
+//    for(let i = 0; i < tweets.length; i++){
+     
+//     console.log(tweets[i].user)
+//       let tweetDate = new Date(tweets[i].created_at);
+//       let day = getDay(tweets[i].created_at);
+//       let date = tweetDate.getDate();
+//       let month = getMonth(tweets[i].created_at);
+    
+    
+   
+//     tweets[i].created_at = `${day} ${month} ${date}`
+ 
+//      const tweet = {
+//       'date':tweets[i].created_at,
+//       'id':tweets[i].id,
+//       'text':tweets[i].text,
+//       'name':tweets[i].user.name, 
+//       'userName':tweets[i].user.screen_name, 
+//       'image':tweets[i].user.profile_image_url,
+//       'likes':tweets[i].favorite_count,
+//       'retweets':tweets[i].retweet_count
+//      } 
+//     tweetsArray.push(tweet)     
+// } 
+// return(tweetsArray)  
+// }
+ 
+
+
 const getTweets = async (res) => {
   const tweets = res;
+  console.log(tweets)
   let tweetsArray = [];
  
    for(let i = 0; i < tweets.length; i++){
+  
+       console.log(tweets[i])
+    //  for(let j = 0; j < entities.length; j++){
+      
+    //  }
+    //  let t = tweets[i];
+    //  tweets[i] = await axios.get(`https://api.twitter.com/1.1/statuses/show.json?id=${t.id}`, headers)
+    // .then(res => console.log(res))
+      
       let tweetDate = new Date(tweets[i].created_at);
       let day = getDay(tweets[i].created_at);
       let date = tweetDate.getDate();
       let month = getMonth(tweets[i].created_at);
     
-   
     tweets[i].created_at = `${day} ${month} ${date}`
  
      const tweet = {
@@ -59,19 +101,12 @@ const getTweets = async (res) => {
       'likes':tweets[i].favorite_count,
       'retweets':tweets[i].retweet_count
      } 
-    tweetsArray.push(tweet)     
+    tweetsArray.push(tweet)  
 } 
 return(tweetsArray)  
 }
+
  
-
-
-
-
-   
-   
-       
-  
 const headers = {
   headers: {
     Authorization: `Bearer ${process.env.BEARER_TOKEN}`
@@ -91,7 +126,7 @@ app.post('/api/content', ((req, res) => {
     username = userData[i].input 
   } 
   database.remove({}, {multi: true}, ((err, data) => {}))
-  database.insert({url: `https://api.twitter.com/1.1/search/tweets.json?q=${username}`})
+  database.insert({url:`https://api.twitter.com/1.1/search/tweets.json?q=${username}&count=20`})
 
   res.json({
     sataus: 'Request received'
@@ -107,12 +142,11 @@ app.get('/api/content', ((req, res) => {
       return;
     }
     const url = data[data.length - 1].url;
+  
     const userUrl = await axios.get(url, headers)
-     .then(res => res.data.statuses)
-     .then(res => getTweets(res))
-     .catch(err => console.log('Error' + '' + err))
-    console.log(userUrl)
-    res.send(userUrl);
+     .then(res => getTweets(res.data.statuses))
+     .then(data => res.send(data))
+     .catch(err => console.log('Error' + '' + err)) 
  });
 }));
 
@@ -127,12 +161,13 @@ app.post('/api/users', ((req, res) => {
     username = userData[i].input 
   } 
   database.remove({}, {multi: true}, ((err, data) => {}))
-  database.insert({url: `https://api.twitter.com/labs/2/users/by?usernames=${username}`})
+  database.insert({url: `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=20`})
  
   res.json({
     sataus: 'Request received'
     }); 
 }));
+
 
 
 
@@ -143,12 +178,10 @@ app.get('/api/users', ((req, res) => {
        return;
      }
      try{
-     const url = data[data.length - 1].url;
-     const userUrl = await axios.get(url, headers)
-     .then(res => getId(res))
-     .catch(err => console.log('Error' + '' + err))
-     const userTweets = await axios.get(userUrl, headers)
+     const url = data[data.length-1].url;
+     const userTweets = await axios.get(url, headers)
      .then(res => getTweets(res.data))
+     .then(data=> res.send(data))
      .catch(err => console.log(err))
      
     //  for(let i = 0; i < userTweets.length; i++){
@@ -157,12 +190,62 @@ app.get('/api/users', ((req, res) => {
     //   userTweets[i] = await axios.get(`https://api.twitter.com/1.1/statuses/show.json?id=${tweet.id}`, headers)
     //  .then(res => console.log(res))
     //  }
-    res.send(userTweets)
+    
   
   }catch(err) {
     console.log(err)
   }
 })}))
+
+
+
+getProfile = async (res) => {
+  const profiles = res;
+  const profile = {
+      'id':profiles.id,
+      'name':profiles.name, 
+      'userName':profiles.screen_name, 
+      'image':profiles.profile_image_url,
+  } 
+ return profile;
+}
+
+
+
+app.get('/api/profiles', (async (req, res) => {
+  const profiles = ['AdrianYounge', 'elonmusk', 'BerlinPhil', 'jordanbpeterson', 'GordonRamsay']
+  
+ 
+    let url1 = `https://api.twitter.com/1.1/users/show.json?screen_name=${profiles[0]}`;
+    let url2 = `https://api.twitter.com/1.1/users/show.json?screen_name=${profiles[1]}`;
+    let url3 = `https://api.twitter.com/1.1/users/show.json?screen_name=${profiles[2]}`;
+    let url4 = `https://api.twitter.com/1.1/users/show.json?screen_name=${profiles[3]}`;
+    let url5 = `https://api.twitter.com/1.1/users/show.json?screen_name=${profiles[4]}`;
+
+   
+    const profileUserOne = await axios.get(url1, headers)
+    .then(res => getProfile(res.data))
+    
+    const profileUserTwo = await axios.get(url2, headers)
+    .then(res => getProfile(res.data))
+    .catch(err => console.log(err))
+    
+    const profileUserThree = await axios.get(url3, headers)
+    .then(res => getProfile(res.data))
+    .catch(err => console.log(err))
+    
+    const profileUserFour = await axios.get(url4, headers)
+    .then(res => getProfile(res.data))
+    .catch(err => console.log(err))
+
+    const profileUserFive = await axios.get(url5, headers)
+    .then(res => getProfile(res.data))
+    .catch(err => console.log(err))
+   
+     const usersProfiles = axios.all([profileUserOne, profileUserTwo,   profileUserThree, profileUserFour, profileUserFive])
+      .then(responses => res.send(responses))
+      .catch(err => console.log(err)) 
+}))
 
 
 
@@ -192,6 +275,7 @@ app.get('/api/random', ((req, res) => {
     res.send(userTweets)
   })
 }))
+
 
 
 
