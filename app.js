@@ -75,15 +75,7 @@ const getTweets = async (res) => {
   let tweetsArray = [];
  
    for(let i = 0; i < tweets.length; i++){
-  
-       console.log(tweets[i])
-    //  for(let j = 0; j < entities.length; j++){
-      
-    //  }
-    //  let t = tweets[i];
     //  tweets[i] = await axios.get(`https://api.twitter.com/1.1/statuses/show.json?id=${t.id}`, headers)
-    // .then(res => console.log(res))
-      
       let tweetDate = new Date(tweets[i].created_at);
       let day = getDay(tweets[i].created_at);
       let date = tweetDate.getDate();
@@ -183,17 +175,9 @@ app.get('/api/users', ((req, res) => {
      .then(res => getTweets(res.data))
      .then(data=> res.send(data))
      .catch(err => console.log(err))
-     
-    //  for(let i = 0; i < userTweets.length; i++){
-    //   console.log(userTweets[i].id_str)
-    //   let tweet = userTweets[i];
-    //   userTweets[i] = await axios.get(`https://api.twitter.com/1.1/statuses/show.json?id=${tweet.id}`, headers)
-    //  .then(res => console.log(res))
-    //  }
-    
   
-  }catch(err) {
-    console.log(err)
+     }catch(err) {
+      console.log(err)
   }
 })}))
 
