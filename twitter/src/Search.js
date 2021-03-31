@@ -52,8 +52,12 @@ return (
       <div className='media'> 
      <img src={user.image} className='rounded-circle mr-3' alt='Image'/>
      <div className='media-body'>
-     <h5 className='mt-0'>{user.name}   <small className='text-secondary'>@{user.userName}</small><br></br> <small className='text-secondary'><i>{user.date}</i></small></h5>
-     <p lan="en">{user.text}<img src={user.picture} className='mr-3' alt='Image'/></p>
+     <div className='name-date'>
+       <h5 className='mt-0'>{user.name}
+       <div><small className='username text-secondary'>@{user.userName}</small></div></h5>
+       <small className='text-secondary'><i>{user.date}</i></small>
+     </div>
+     <p className='text' lan="en">{user.text}<a className='url'>{user.url}</a><img src={user.picture} className='pic' alt='Image'/></p>
      <div className='icons'>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faRetweet}/>{user.retweets}</div>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faHeart}/>{user.likes}</div>

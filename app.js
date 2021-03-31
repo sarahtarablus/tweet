@@ -15,16 +15,6 @@ app.use(bodyParser.json({extended: true}));
 
 
 
-const getId = (res) => {
-  let user = res.data.data;
-  for(let i = 0; i < user.length; i++){
-    let userId = user[i].id
-    let url = `https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=200&exclude_replies=true&include_rts=false`
-    return url
-  }
-}
-
-
 const getDay = (date) => {
   let day = new Date(date).getDay()
   return isNaN(day) ? null : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][day]
@@ -36,68 +26,58 @@ const getMonth = (date) => {
 }
 
 
+const getPicture = (media) => {
+  let picture;
+  media === undefined ? picture = '' :  media.forEach(m => {picture = m.media_url})
+  return picture
+}
 
+
+
+const getUrlFromText = (urls) => {
+  let link
+  urls !== [] ? urls.forEach(url => {url.url === undefined ? link = '' : link = url.url}) : urls = '';
+  return link
+}
 
 
 const getTweets = async (res) => {
   const tweets = res;
-  console.log(tweets)
  
   let tweetsArray = [];
   for(let i = 0; i < tweets.length; i++){
     let media = tweets[i].entities.media
-    if(media !== undefined){
-      for(let j = 0; j < media.length; j++){
-        let picture = media[j].media_url;
-       
-        let tweetDate = new Date(tweets[i].created_at);
-        let day = getDay(tweets[i].created_at);
-        let date = tweetDate.getDate();
-        let month = getMonth(tweets[i].created_at);
+    let hashtags = tweets[i].entities.hashtags
+    let urls = tweets[i].entities.urls
+    let picture = getPicture(media)
+    let url = getUrlFromText(urls)
+    console.log(url)
+   
+    let tweetDate = new Date(tweets[i].created_at);
+    let day = getDay(tweets[i].created_at);
+    let date = tweetDate.getDate();
+    let month = getMonth(tweets[i].created_at);
       
-      tweets[i].created_at = `${day} ${month} ${date}`
+    tweets[i].created_at = `${day} ${month} ${date}`
     
-       const tweet = {
+      const tweet = {
         'date':tweets[i].created_at,
         'id':tweets[i].id,
         'text':tweets[i].text,
+        'url': url,
         'picture': picture,
         'name':tweets[i].user.name, 
         'userName':tweets[i].user.screen_name, 
         'image':tweets[i].user.profile_image_url,
         'likes':tweets[i].favorite_count,
         'retweets':tweets[i].retweet_count
-       } 
-      tweetsArray.push(tweet) 
-     
-      }
-    }else{
-
-      let tweetDate = new Date(tweets[i].created_at);
-      let day = getDay(tweets[i].created_at);
-      let date = tweetDate.getDate();
-      let month = getMonth(tweets[i].created_at);
-    
-    tweets[i].created_at = `${day} ${month} ${date}`
-  
-     const tweet = {
-      'date':tweets[i].created_at,
-      'id':tweets[i].id,
-      'text':tweets[i].text,
-      //'picture': picture,
-      'name':tweets[i].user.name, 
-      'userName':tweets[i].user.screen_name, 
-      'image':tweets[i].user.profile_image_url,
-      'likes':tweets[i].favorite_count,
-      'retweets':tweets[i].retweet_count
-     } 
-    tweetsArray.push(tweet)
-    }
+      } 
+    tweetsArray.push(tweet) 
   }
-  return tweetsArray 
+    return tweetsArray 
 }  
 
- 
+
 const headers = {
   headers: {
     Authorization: `Bearer ${process.env.BEARER_TOKEN}`

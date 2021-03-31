@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faRetweet, faHeart} from '@fortawesome/free-solid-svg-icons';
 
 const Random = (props) => {
-  const [profile, setProfile] = useState([]);
+  //const [profile, setProfile] = useState([]);
   const [tweets, setTweets] = useState({});
   const [users, setUsers] = useState([]);
 
@@ -60,8 +60,12 @@ const Random = (props) => {
       <div className='media'> 
      <img src={tweets.image} className='rounded-circle mr-3' alt='Image'/>
      <div className='media-body'>
-     <h5 className='mt-0'>{tweets.name}   <small className='text-secondary'>@{tweets.userName}</small> <br></br>  <small className='text-secondary'><i>{tweets.date}</i></small></h5>
-     <p lan="en">{tweets.text}<img src={tweets.picture} className='mr-3' alt='Image'/></p>
+     <div className='name-date'>
+       <h5 className='mt-0'>{tweets.name}
+       <div><small className='username text-secondary'>@{tweets.userName}</small></div></h5>
+       <small className='text-secondary'><i>{tweets.date}</i></small>
+     </div>
+     <p className='text'lan="en">{tweets.text}<img src={tweets.picture} className='pic' alt='Image'/></p>
      <div className='icons'>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faRetweet}/>{tweets.retweets}</div>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faHeart}/>{tweets.likes}</div>

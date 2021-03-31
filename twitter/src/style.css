@@ -76,13 +76,33 @@ i {
 }
 
 .showcase {
-  height: 300px;
-  width: 400px;
-  background-color: white;
+  max-height: 900px;
+  max-width: 600px;
+  min-width: 600px;
 }
 
 .title {
   display: block;
+}
+
+.pic {
+  max-width: 450px;
+  max-height: 480px;
+  border-radius: 8px;
+}
+
+
+
+.text {
+  padding: 10px 0 10px 0;
+}
+
+.username {
+  font-size: 15px;
+}
+
+.name-date {
+  display: inline-block;
 }
 
 /* 
