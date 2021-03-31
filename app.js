@@ -43,38 +43,41 @@ const getUrlFromText = (urls) => {
 
 const getTweets = async (res) => {
   const tweets = res;
- 
+ //console.log(tweets)
   let tweetsArray = [];
-  for(let i = 0; i < tweets.length; i++){
-    let media = tweets[i].entities.media
-    let hashtags = tweets[i].entities.hashtags
-    let urls = tweets[i].entities.urls
-    let picture = getPicture(media)
-    let url = getUrlFromText(urls)
-    console.log(url)
+  tweets.forEach(t => {
+    let media = t.entities.media;
+    let urls = t.entities.urls;
+    let picture = getPicture(media);
+    let link = getUrlFromText(urls);
+    //console.log(media)
+    media !== undefined ? media.forEach(f => {
+      console.log(f.url)
+    }) : console.log('no media')
+    //console.log(t.full_text)
    
-    let tweetDate = new Date(tweets[i].created_at);
-    let day = getDay(tweets[i].created_at);
+    let tweetDate = new Date(t.created_at);
+    let day = getDay(t.created_at);
     let date = tweetDate.getDate();
-    let month = getMonth(tweets[i].created_at);
+    let month = getMonth(t.created_at);
       
-    tweets[i].created_at = `${day} ${month} ${date}`
+    t.created_at = `${day} ${month} ${date}`;
     
       const tweet = {
-        'date':tweets[i].created_at,
-        'id':tweets[i].id,
-        'text':tweets[i].text,
-        'url': url,
+        'date':t.created_at,
+        'id':t.id,
+        'text':t.full_text,
+        //'link': link,
         'picture': picture,
-        'name':tweets[i].user.name, 
-        'userName':tweets[i].user.screen_name, 
-        'image':tweets[i].user.profile_image_url,
-        'likes':tweets[i].favorite_count,
-        'retweets':tweets[i].retweet_count
+        'name':t.user.name, 
+        'userName':t.user.screen_name, 
+        'image':t.user.profile_image_url,
+        'likes':t.favorite_count,
+        'retweets':t.retweet_count
       } 
-    tweetsArray.push(tweet) 
-  }
-    return tweetsArray 
+    tweetsArray.push(tweet);
+ })
+    return tweetsArray;
 }  
 
 
@@ -86,6 +89,10 @@ const headers = {
 }
 
 
+const storeUrlInDatabase = (uri) => {
+  database.remove({}, {multi: true}, ((err, data) => {}))
+  database.insert({url: uri})
+}
 
 
 
@@ -97,9 +104,8 @@ app.post('/api/content', ((req, res) => {
   for(let i = 0; i < userData.length; i++){
     username = userData[i].input 
   } 
-  database.remove({}, {multi: true}, ((err, data) => {}))
-  database.insert({url:`https://api.twitter.com/1.1/search/tweets.json?q=${username}&count=20&include_entities=true`})
-
+  storeUrlInDatabase(`https://api.twitter.com/1.1/search/tweets.json?q=${username}&count=20&include_entities=true&tweet_mode=extended`)
+  
   res.json({
     sataus: 'Request received'
   }); 
@@ -132,9 +138,8 @@ app.post('/api/users', ((req, res) => {
   for(let i = 0; i < userData.length; i++){
     username = userData[i].input 
   } 
-  database.remove({}, {multi: true}, ((err, data) => {}))
-  database.insert({url: `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=20&include_entities=true`})
- 
+  storeUrlInDatabase(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=20&include_entities=true&tweet_mode=extended`)
+
   res.json({
     sataus: 'Request received'
     }); 
@@ -179,14 +184,12 @@ getProfile = async (res) => {
 app.get('/api/profiles', (async (req, res) => {
   const profiles = ['AdrianYounge', 'elonmusk', 'BerlinPhil', 'jordanbpeterson', 'GordonRamsay']
   
- 
     let url1 = `https://api.twitter.com/1.1/users/show.json?screen_name=${profiles[0]}`;
     let url2 = `https://api.twitter.com/1.1/users/show.json?screen_name=${profiles[1]}`;
     let url3 = `https://api.twitter.com/1.1/users/show.json?screen_name=${profiles[2]}`;
     let url4 = `https://api.twitter.com/1.1/users/show.json?screen_name=${profiles[3]}`;
     let url5 = `https://api.twitter.com/1.1/users/show.json?screen_name=${profiles[4]}`;
 
-   
     const profileUserOne = await axios.get(url1, headers)
     .then(res => getProfile(res.data))
     
@@ -216,8 +219,7 @@ app.get('/api/profiles', (async (req, res) => {
 
 app.post('/api/random', ((req, res) => {
   const userId = JSON.parse(req.body.form);
-  database.remove({}, {multi: true}, ((err, data) => {}))
-  database.insert({url: `https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=20&include_entities=true`})
+  storeUrlInDatabase(`https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=200&include_entities=true&tweet_mode=extended`)
  
   res.json({
     sataus: 'Request received'
@@ -239,7 +241,6 @@ app.get('/api/random', ((req, res) => {
     res.send(userTweets)
   })
 }))
-
 
 
 
