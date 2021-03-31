@@ -9,7 +9,7 @@ const Search = (props) => {
   const [userTweets, setUserTweets] = useState([]);
 
  
-const getUser = async (url) => {
+const getTweets = async (url) => {
     let urls = url;
     try{
       const options = {
@@ -43,8 +43,8 @@ return (
         <input className='form-control-lg bg-light mt-5 shadow-lg' onChange={({target}) => setInput(target.value)}  value={input} type='text' placeholder='search' required></input>
       </div>
       <div className='buttons form-group'>
-        <button onClick={() => getUser('/api/users')} type='submit' className='btn btn-dark mx-1 mb-5 shadow-lg'>Username</button>
-        <button onClick={() => getUser('/api/content')} type='submit' className='btn btn-dark mx-1 mb-5 shadow-lg'>Content</button>
+        <button onClick={() => getTweets('/api/users')} type='submit' className='btn btn-dark mx-1 mb-5 shadow-lg'>Username</button>
+        <button onClick={() => getTweets('/api/content')} type='submit' className='btn btn-dark mx-1 mb-5 shadow-lg'>Content</button>
       </div>
     </form>
     {userTweets.map((user) => {
@@ -53,7 +53,7 @@ return (
      <img src={user.image} className='rounded-circle mr-3' alt='Image'/>
      <div className='media-body'>
      <h5 className='mt-0'>{user.name}   <small className='text-secondary'>@{user.userName}</small><br></br> <small className='text-secondary'><i>{user.date}</i></small></h5>
-     <p lan="en">{user.text}</p>
+     <p lan="en">{user.text}<img src={user.picture} className='mr-3' alt='Image'/></p>
      <div className='icons'>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faRetweet}/>{user.retweets}</div>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faHeart}/>{user.likes}</div>

@@ -61,7 +61,7 @@ const Random = (props) => {
      <img src={tweets.image} className='rounded-circle mr-3' alt='Image'/>
      <div className='media-body'>
      <h5 className='mt-0'>{tweets.name}   <small className='text-secondary'>@{tweets.userName}</small> <br></br>  <small className='text-secondary'><i>{tweets.date}</i></small></h5>
-     <p>{tweets.text}</p>
+     <p lan="en">{tweets.text}<img src={tweets.picture} className='mr-3' alt='Image'/></p>
      <div className='icons'>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faRetweet}/>{tweets.retweets}</div>
      <div className='icon text-secondary'><FontAwesomeIcon icon={faHeart}/>{tweets.likes}</div>

@@ -36,81 +36,66 @@ const getMonth = (date) => {
 }
 
 
-// const getTweets = async (res) => {
-//   const tweets = res;
-//   let tweetsArray = [];
- 
-//    for(let i = 0; i < tweets.length; i++){
-     
-//     console.log(tweets[i].user)
-//       let tweetDate = new Date(tweets[i].created_at);
-//       let day = getDay(tweets[i].created_at);
-//       let date = tweetDate.getDate();
-//       let month = getMonth(tweets[i].created_at);
-    
-    
-   
-//     tweets[i].created_at = `${day} ${month} ${date}`
- 
-//      const tweet = {
-//       'date':tweets[i].created_at,
-//       'id':tweets[i].id,
-//       'text':tweets[i].text,
-//       'name':tweets[i].user.name, 
-//       'userName':tweets[i].user.screen_name, 
-//       'image':tweets[i].user.profile_image_url,
-//       'likes':tweets[i].favorite_count,
-//       'retweets':tweets[i].retweet_count
-//      } 
-//     tweetsArray.push(tweet)     
-// } 
-// return(tweetsArray)  
-// }
- 
+
 
 
 const getTweets = async (res) => {
   const tweets = res;
-  //console.log(tweets)
+  console.log(tweets)
+ 
+  let tweetsArray = [];
   for(let i = 0; i < tweets.length; i++){
     let media = tweets[i].entities.media
-     if(media !== undefined){
-      console.log(media)
-    }else {
-     console.log('no pictures')
-     }
-    //console.log(tweets[i].entities.media)
-    // for(let j = 0; j < t.length; j++){
-    //   console.log(t[j].url)
-    // }
-  }
-  
-  let tweetsArray = [];
- 
-  // for(let i = 0; i < tweets.length; i++){
-  //    tweets[i] = await axios.get(`https://api.twitter.com/1.1/statuses/show.json?id=${tweets[i].id}&tweet.fields=attachments`, headers)
-  //   .then(res => console.log(res))
-    //   let tweetDate = new Date(tweets[i].created_at);
-    //   let day = getDay(tweets[i].created_at);
-    //   let date = tweetDate.getDate();
-    //   let month = getMonth(tweets[i].created_at);
+    if(media !== undefined){
+      for(let j = 0; j < media.length; j++){
+        let picture = media[j].media_url;
+       
+        let tweetDate = new Date(tweets[i].created_at);
+        let day = getDay(tweets[i].created_at);
+        let date = tweetDate.getDate();
+        let month = getMonth(tweets[i].created_at);
+      
+      tweets[i].created_at = `${day} ${month} ${date}`
     
-    // tweets[i].created_at = `${day} ${month} ${date}`
- 
-    //  const tweet = {
-    //   'date':tweets[i].created_at,
-    //   'id':tweets[i].id,
-    //   'text':tweets[i].text,
-    //   'name':tweets[i].user.name, 
-    //   'userName':tweets[i].user.screen_name, 
-    //   'image':tweets[i].user.profile_image_url,
-    //   'likes':tweets[i].favorite_count,
-    //   'retweets':tweets[i].retweet_count
-    //  } 
-    // tweetsArray.push(tweet)  
- 
-return(tweetsArray)  
-}
+       const tweet = {
+        'date':tweets[i].created_at,
+        'id':tweets[i].id,
+        'text':tweets[i].text,
+        'picture': picture,
+        'name':tweets[i].user.name, 
+        'userName':tweets[i].user.screen_name, 
+        'image':tweets[i].user.profile_image_url,
+        'likes':tweets[i].favorite_count,
+        'retweets':tweets[i].retweet_count
+       } 
+      tweetsArray.push(tweet) 
+     
+      }
+    }else{
+
+      let tweetDate = new Date(tweets[i].created_at);
+      let day = getDay(tweets[i].created_at);
+      let date = tweetDate.getDate();
+      let month = getMonth(tweets[i].created_at);
+    
+    tweets[i].created_at = `${day} ${month} ${date}`
+  
+     const tweet = {
+      'date':tweets[i].created_at,
+      'id':tweets[i].id,
+      'text':tweets[i].text,
+      //'picture': picture,
+      'name':tweets[i].user.name, 
+      'userName':tweets[i].user.screen_name, 
+      'image':tweets[i].user.profile_image_url,
+      'likes':tweets[i].favorite_count,
+      'retweets':tweets[i].retweet_count
+     } 
+    tweetsArray.push(tweet)
+    }
+  }
+  return tweetsArray 
+}  
 
  
 const headers = {
@@ -119,6 +104,7 @@ const headers = {
   },
   ContentType: 'application/json'
 }
+
 
 
 
@@ -150,7 +136,7 @@ app.get('/api/content', ((req, res) => {
     const url = data[data.length - 1].url;
   
     const userUrl = await axios.get(url, headers)
-     .then(res => getTweets(res.data))
+     .then(res => getTweets(res.data.statuses))
      .then(data => res.send(data))
      .catch(err => console.log('Error' + '' + err)) 
  });
