@@ -71,30 +71,44 @@ const getMonth = (date) => {
 
 const getTweets = async (res) => {
   const tweets = res;
-  console.log(tweets)
+  //console.log(tweets)
+  for(let i = 0; i < tweets.length; i++){
+    let media = tweets[i].entities.media
+     if(media !== undefined){
+      console.log(media)
+    }else {
+     console.log('no pictures')
+     }
+    //console.log(tweets[i].entities.media)
+    // for(let j = 0; j < t.length; j++){
+    //   console.log(t[j].url)
+    // }
+  }
+  
   let tweetsArray = [];
  
-   for(let i = 0; i < tweets.length; i++){
-    //  tweets[i] = await axios.get(`https://api.twitter.com/1.1/statuses/show.json?id=${t.id}`, headers)
-      let tweetDate = new Date(tweets[i].created_at);
-      let day = getDay(tweets[i].created_at);
-      let date = tweetDate.getDate();
-      let month = getMonth(tweets[i].created_at);
+  // for(let i = 0; i < tweets.length; i++){
+  //    tweets[i] = await axios.get(`https://api.twitter.com/1.1/statuses/show.json?id=${tweets[i].id}&tweet.fields=attachments`, headers)
+  //   .then(res => console.log(res))
+    //   let tweetDate = new Date(tweets[i].created_at);
+    //   let day = getDay(tweets[i].created_at);
+    //   let date = tweetDate.getDate();
+    //   let month = getMonth(tweets[i].created_at);
     
-    tweets[i].created_at = `${day} ${month} ${date}`
+    // tweets[i].created_at = `${day} ${month} ${date}`
  
-     const tweet = {
-      'date':tweets[i].created_at,
-      'id':tweets[i].id,
-      'text':tweets[i].text,
-      'name':tweets[i].user.name, 
-      'userName':tweets[i].user.screen_name, 
-      'image':tweets[i].user.profile_image_url,
-      'likes':tweets[i].favorite_count,
-      'retweets':tweets[i].retweet_count
-     } 
-    tweetsArray.push(tweet)  
-} 
+    //  const tweet = {
+    //   'date':tweets[i].created_at,
+    //   'id':tweets[i].id,
+    //   'text':tweets[i].text,
+    //   'name':tweets[i].user.name, 
+    //   'userName':tweets[i].user.screen_name, 
+    //   'image':tweets[i].user.profile_image_url,
+    //   'likes':tweets[i].favorite_count,
+    //   'retweets':tweets[i].retweet_count
+    //  } 
+    // tweetsArray.push(tweet)  
+ 
 return(tweetsArray)  
 }
 
@@ -118,7 +132,7 @@ app.post('/api/content', ((req, res) => {
     username = userData[i].input 
   } 
   database.remove({}, {multi: true}, ((err, data) => {}))
-  database.insert({url:`https://api.twitter.com/1.1/search/tweets.json?q=${username}&count=20`})
+  database.insert({url:`https://api.twitter.com/1.1/search/tweets.json?q=${username}&count=20&include_entities=true`})
 
   res.json({
     sataus: 'Request received'
@@ -136,7 +150,7 @@ app.get('/api/content', ((req, res) => {
     const url = data[data.length - 1].url;
   
     const userUrl = await axios.get(url, headers)
-     .then(res => getTweets(res.data.statuses))
+     .then(res => getTweets(res.data))
      .then(data => res.send(data))
      .catch(err => console.log('Error' + '' + err)) 
  });
@@ -153,7 +167,7 @@ app.post('/api/users', ((req, res) => {
     username = userData[i].input 
   } 
   database.remove({}, {multi: true}, ((err, data) => {}))
-  database.insert({url: `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=20`})
+  database.insert({url: `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=20&include_entities=true`})
  
   res.json({
     sataus: 'Request received'
@@ -237,7 +251,7 @@ app.get('/api/profiles', (async (req, res) => {
 app.post('/api/random', ((req, res) => {
   const userId = JSON.parse(req.body.form);
   database.remove({}, {multi: true}, ((err, data) => {}))
-  database.insert({url: `https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=200&exclude_replies=true&include_rts=false`})
+  database.insert({url: `https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=20&include_entities=true`})
  
   res.json({
     sataus: 'Request received'

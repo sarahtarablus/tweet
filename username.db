@@ -1,3 +1,3 @@
-{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=andysterks&count=20","_id":"qUDD9YB6OYvO871L"}
-{"$$deleted":true,"_id":"qUDD9YB6OYvO871L"}
-{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=andysterks&count=20","_id":"m0toyksRxfOjPzsN"}
+{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=gordonramsay&count=20&include_entities=true","_id":"iXVywovhL9uxzWGo"}
+{"$$deleted":true,"_id":"iXVywovhL9uxzWGo"}
+{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=gordonramsay&count=20&include_entities=true","_id":"OGKHxPN4pu2mwHKH"}
