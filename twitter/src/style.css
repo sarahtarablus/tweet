@@ -10,7 +10,7 @@
 }
 
 body {
-  background: linear-gradient(to right, rgb(245, 243, 240), #fafafa);
+  background-color: rgb(250, 248, 248);
 }
 
 .home {
@@ -105,96 +105,4 @@ i {
   display: inline-block;
 }
 
-/* 
-.title {  
-  color: white; 
-  font-size: 70px;
-  padding: 40px 0 0 100px;
- 
-}
 
-.text {
-  height: 100px;
-  width: 300px;
-  font-weight: bold;
-  color: white;
-  font-size: 30px;
-  margin: 130px 0 0 125px;
-}
-
-
-
-.input {
-  display: flex;
-  justify-content: center;
-  margin-top: 80px;
-  padding-top: 30px;
-  padding-bottom: 10px;
-}
-
-input {
-  height: 45px;
-  width: 250px;
-  border-radius: 5px;
-  border: none;
-  padding: 5px;
-}
-
-
-.buttons {
-  display: inline-flex;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-left: 15px;
-}
-
-button {
-  height: 45px;
-  width: 115px;
-  border-radius: 5px;
-  border: none;
-  background-color: black;
-  color: white;
-  margin: 5px;
-}
-
-
-.showcase {
-  color: white;
-  height: 200px;
-  width: 600px;
-  font-size: 17px;
-  border: white solid 1.5px;
-  border-radius: 8px;
-  padding: 10px 0 0 30px;
-}
-
-.usernameAndDate {
-  display: inline-block;
-}
-
-p {
-  padding-right: 15px;
-}
-
-
-.icons {
-  font-size: 15px;
-  padding: 20px;
-}
-
-.icon {
-  display: inline-flex;
-  padding: 0 10px 0 50px;
-}
-
-.random {
-  background-color: white;
-  color: black;
-}
-
-.char {
-  background-color: white;
-  color: black;
-} */
