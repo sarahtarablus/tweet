@@ -55,13 +55,13 @@ const getProfiles = async () => {
   <div className='random'>
     <h3>Click on one of this users to get a random tweet</h3>
    {users.map((user) => {
-    return  <div key={user.id} data-div_id={user.id} data-div_name={user.name}  onClick={getTweets} className="card ran shadow-lg">
+    return  <div key={user.id} data-div_id={user.id} data-div_name={user.name}  onClick={getTweets} data-toggle='modal' data-target='exemple'className="card ran shadow-lg">
     <h5 className="card-title">{user.name}</h5><small>@{user.userName}</small>
     <img className="rounded-circle px-5" src={user.image} alt="image"/>
     </div>
    })} 
    {Object.keys(tweets).length === 0 ? '' : 
-    <Showcase key={tweets.id} id={tweets.id} image={tweets.image} name={tweets.name} userName={tweets.userName} date={tweets.date} text={tweets.text} picture={tweets.picture} retweets={tweets.retweets} likes={tweets.likes}/>
+    <Showcase key={tweets.id} id={tweets.id} image={tweets.image} name={tweets.name} userName={tweets.userName} date={tweets.date} text={tweets.text} link={tweets.link}picture={tweets.picture} retweets={tweets.retweets} likes={tweets.likes}/>
    }
   </div>
  )}

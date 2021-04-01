@@ -41,12 +41,21 @@ const getUrlFromText = (urls) => {
 }
 
 
-const getTextWithoutLink = (texts, url) => {
-  let fullText = texts
-  if(fullText.indexOf(url) !== -1){
-    let text = fullText.replace(url, '');
-    return text
+const getPictureUrlLink = (media) => {
+  let pictureUrl;
+  media === undefined ? pictureUrl = '' :  media.forEach(m => {pictureUrl = m.url})
+  return pictureUrl;
+}
+
+
+const getTextWithoutLink = (text, url) => {
+  let textWithoutLink;
+  if(text.indexOf(url) !== -1){
+    textWithoutLink = text.replace(url, '');
+  } else {
+    textWithoutLink = text;
   }
+  return textWithoutLink
 }
 
 
@@ -57,16 +66,21 @@ const getTweets = async (res) => {
   tweets.forEach(t => {
     let media = t.entities.media;
     let urls = t.entities.urls;
-    
+    let entireText = t.full_text;
     let picture = getPicture(media);
     let link = getUrlFromText(urls);
-    let entireText = t.full_text;
-    let text;// = getTextWithoutLink(entireText, link)
-    if(entireText.indexOf(link) !== -1){
-      text = entireText.replace(link, '');
-      console.log(text)
-     } //return text
-    //console.log(text)
+    let pictureUrl = getPictureUrlLink(media);
+    let text1 = getTextWithoutLink(entireText, pictureUrl);
+    let text = getTextWithoutLink(text1, link);
+    // let f;
+    // if(text.indexOf(link) !== -1){
+    //   f = text.replace(link, '')
+   
+    // }else {
+    //   f = text
+    // }
+
+   
  
     let tweetDate = new Date(t.created_at);
     let day = getDay(t.created_at);
@@ -79,7 +93,7 @@ const getTweets = async (res) => {
         'date':t.created_at,
         'id':t.id,
         'text':text,
-        //'link': link,
+        'link': link,
         'picture': picture,
         'name':t.user.name, 
         'userName':t.user.screen_name, 

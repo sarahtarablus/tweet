@@ -32,12 +32,12 @@ const getTweets = async (url) => {
 }
 
 
-const followLink = async (e) => {
-  e.preventDefault();
-  await axios.get(tweets.link)
-  .then(res => console.log(res))
-  .catch(err => console.log(err))
-}
+// const openLink = async (e) => {
+//   e.preventDefault();
+//   await axios.get(tweets.link)
+//   .then(res => console.log(res))
+//   .catch(err => console.log(err))
+// }
 
 
 
@@ -57,7 +57,7 @@ return (
       </div>
     </form>
     {userTweets.map((user) => {
-      return  <Showcase key={user.id} image={user.image} name={user.name} userName={user.userName} date={user.date} text={user.text}  picture={user.picture} retweets={user.retweets} likes={user.likes}/>
+      return  <Showcase key={user.id} image={user.image} name={user.name} userName={user.userName} date={user.date} text={user.text} link={user.link} link={user.link} picture={user.picture} retweets={user.retweets} likes={user.likes}/>
     })}
   </div>
   )}
