@@ -50,12 +50,8 @@ const getTweets = async (res) => {
     let urls = t.entities.urls;
     let picture = getPicture(media);
     let link = getUrlFromText(urls);
-    //console.log(media)
-    media !== undefined ? media.forEach(f => {
-      console.log(f.url)
-    }) : console.log('no media')
-    //console.log(t.full_text)
-   
+    console.log(link)
+ 
     let tweetDate = new Date(t.created_at);
     let day = getDay(t.created_at);
     let date = tweetDate.getDate();
@@ -67,7 +63,7 @@ const getTweets = async (res) => {
         'date':t.created_at,
         'id':t.id,
         'text':t.full_text,
-        //'link': link,
+        'link': link,
         'picture': picture,
         'name':t.user.name, 
         'userName':t.user.screen_name, 

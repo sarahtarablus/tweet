@@ -8,18 +8,25 @@ const Random = (props) => {
   const [users, setUsers] = useState([]);
 
  
-  useEffect(() => {
+useEffect(() => {
     getProfiles();
-  }, [])
+}, [])
+
+
+
+const followLink = async (e) => {
+  e.preventDefault();
+  await axios.get(tweets.link)
+  .then(res => console.log(res))
+  .catch(err => console.log(err))
+}
 
   
-  const getProfiles = async () => {
+const getProfiles = async () => {
       await axios.get('/api/profiles')
         .then(res => setUsers([...res.data]))
         .catch(err => console.log(err))
   }
-
- 
   const getTweets = async (e) => {
     const userId = e.currentTarget.dataset.div_id
     try{
@@ -46,7 +53,7 @@ const Random = (props) => {
  
   return (
   <div className='random'>
-    <h3>Click on one of this users</h3>
+    <h3>Click on one of this users to get a random tweet</h3>
    {users.map((user) => {
     return  <div key={user.id} data-div_id={user.id} data-div_name={user.name}  onClick={getTweets} className="card ran shadow-lg">
     <h5 className="card-title">{user.name}</h5><small>@{user.userName}</small>
@@ -54,7 +61,7 @@ const Random = (props) => {
     </div>
    })} 
    {Object.keys(tweets).length === 0 ? '' : 
-    <Showcase key={tweets.id} id={tweets.id} image={tweets.image} name={tweets.name} userName={tweets.userName} date={tweets.date} text={tweets.text} link={tweets.link} picture={tweets.picture} retweets={tweets.retweets} likes={tweets.likes}/>
+    <Showcase key={tweets.id} id={tweets.id} image={tweets.image} name={tweets.name} userName={tweets.userName} date={tweets.date} text={tweets.text} link={tweets.link} onClick={followLink} picture={tweets.picture} retweets={tweets.retweets} likes={tweets.likes}/>
    }
   </div>
  )}

@@ -109,7 +109,12 @@ i {
 h3 {
   display: flex;
   justify-content: center;
-  padding-top: 30px;
-  color: grey;
+  padding: 30px 0 30px 0;
+  color: black;
   font-weight: lighter;
+  background-color: rgb(186, 207, 177);
 }
+/* 
+.link {
+  color: rgb(69, 69, 218);
+} */
