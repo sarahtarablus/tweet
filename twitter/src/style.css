@@ -103,7 +103,13 @@ i {
 }
 
 .name-date {
-  display: inline-block;
+  display: flex;
+}
+
+.date {
+  align-items: flex-end;
+  margin-left: 280px;
+  font-size: 16px;
 }
 
 h3 {
@@ -112,9 +118,10 @@ h3 {
   padding: 30px 0 30px 0;
   color: black;
   font-weight: lighter;
-  background-color: rgb(186, 207, 177);
+  background: rgb(224, 245, 214)
+ 
 }
-/* 
+
 .link {
   color: rgb(69, 69, 218);
-} */
+}

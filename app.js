@@ -43,14 +43,18 @@ const getUrlFromText = (urls) => {
 
 const getTweets = async (res) => {
   const tweets = res;
- //console.log(tweets)
+ console.log(tweets)
   let tweetsArray = [];
   tweets.forEach(t => {
     let media = t.entities.media;
     let urls = t.entities.urls;
     let picture = getPicture(media);
     let link = getUrlFromText(urls);
-    console.log(link)
+
+    // if(t.full_text.contains('https://')){
+    //   t.full_text.slice()
+    // }
+    // console.log(link)
  
     let tweetDate = new Date(t.created_at);
     let day = getDay(t.created_at);
@@ -100,7 +104,7 @@ app.post('/api/content', ((req, res) => {
   for(let i = 0; i < userData.length; i++){
     username = userData[i].input 
   } 
-  storeUrlInDatabase(`https://api.twitter.com/1.1/search/tweets.json?q=${username}&count=20&include_entities=true&tweet_mode=extended`)
+  storeUrlInDatabase(`https://api.twitter.com/1.1/search/tweets.json?q=${username}&count=20&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys&media.fields=preview_image_url,url,width,height`)
   
   res.json({
     sataus: 'Request received'
@@ -134,7 +138,7 @@ app.post('/api/users', ((req, res) => {
   for(let i = 0; i < userData.length; i++){
     username = userData[i].input 
   } 
-  storeUrlInDatabase(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=20&include_entities=true&tweet_mode=extended`)
+  storeUrlInDatabase(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=20&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys&media.fields=preview_image_url,url,width,height`)
 
   res.json({
     sataus: 'Request received'
@@ -215,7 +219,7 @@ app.get('/api/profiles', (async (req, res) => {
 
 app.post('/api/random', ((req, res) => {
   const userId = JSON.parse(req.body.form);
-  storeUrlInDatabase(`https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=200&include_entities=true&tweet_mode=extended`)
+  storeUrlInDatabase(`https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=200&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys&media.fields=preview_image_url,url,width,height`)
  
   res.json({
     sataus: 'Request received'
