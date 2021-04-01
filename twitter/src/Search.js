@@ -57,7 +57,7 @@ return (
       </div>
     </form>
     {userTweets.map((user) => {
-      return  <Showcase key={user.id} image={user.image} name={user.name} userName={user.userName} date={user.date} text={user.text} link={user.link} onClick={followLink} picture={user.picture} retweets={user.retweets} likes={user.likes}/>
+      return  <Showcase key={user.id} image={user.image} name={user.name} userName={user.userName} date={user.date} text={user.text}  picture={user.picture} retweets={user.retweets} likes={user.likes}/>
     })}
   </div>
   )}

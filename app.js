@@ -41,20 +41,32 @@ const getUrlFromText = (urls) => {
 }
 
 
+const getTextWithoutLink = (texts, url) => {
+  let fullText = texts
+  if(fullText.indexOf(url) !== -1){
+    let text = fullText.replace(url, '');
+    return text
+  }
+}
+
+
 const getTweets = async (res) => {
   const tweets = res;
- console.log(tweets)
+ //console.log(tweets)
   let tweetsArray = [];
   tweets.forEach(t => {
     let media = t.entities.media;
     let urls = t.entities.urls;
+    
     let picture = getPicture(media);
     let link = getUrlFromText(urls);
-
-    // if(t.full_text.contains('https://')){
-    //   t.full_text.slice()
-    // }
-    // console.log(link)
+    let entireText = t.full_text;
+    let text;// = getTextWithoutLink(entireText, link)
+    if(entireText.indexOf(link) !== -1){
+      text = entireText.replace(link, '');
+      console.log(text)
+     } //return text
+    //console.log(text)
  
     let tweetDate = new Date(t.created_at);
     let day = getDay(t.created_at);
@@ -66,8 +78,8 @@ const getTweets = async (res) => {
       const tweet = {
         'date':t.created_at,
         'id':t.id,
-        'text':t.full_text,
-        'link': link,
+        'text':text,
+        //'link': link,
         'picture': picture,
         'name':t.user.name, 
         'userName':t.user.screen_name, 

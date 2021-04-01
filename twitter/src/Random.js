@@ -61,7 +61,7 @@ const getProfiles = async () => {
     </div>
    })} 
    {Object.keys(tweets).length === 0 ? '' : 
-    <Showcase key={tweets.id} id={tweets.id} image={tweets.image} name={tweets.name} userName={tweets.userName} date={tweets.date} text={tweets.text} link={tweets.link} onClick={followLink} picture={tweets.picture} retweets={tweets.retweets} likes={tweets.likes}/>
+    <Showcase key={tweets.id} id={tweets.id} image={tweets.image} name={tweets.name} userName={tweets.userName} date={tweets.date} text={tweets.text} picture={tweets.picture} retweets={tweets.retweets} likes={tweets.likes}/>
    }
   </div>
  )}
