@@ -28,8 +28,8 @@ body {
 
 .phrase-container {
   width: 80px;
-  margin: 35px 0 0 30px;
-  padding: 5px;
+  margin: 25px 0 0 30px;
+  padding: 2px 5px 0 5px;
   font-size: 15px;
   font-weight: lighter;
   color: grey;
@@ -37,7 +37,7 @@ body {
 }
 
 .card {
-  margin: 30px;
+  margin: 30px 30px 20px 33px;
   padding: 25px;
   border-radius: 20px;
 }
@@ -93,8 +93,6 @@ i {
   margin-top: 30px;
 }
 
-
-
 .text {
   padding: 10px 0 10px 0;
 }
@@ -120,8 +118,4 @@ h3 {
   color: black;
   font-weight: lighter;
   background: rgb(224, 245, 214);
-}
-
-.link {
-  color: rgb(69, 69, 218);
 }

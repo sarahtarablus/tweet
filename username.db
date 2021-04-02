@@ -1,5 +1,1 @@
-{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=43298395&count=200&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys&media.fields=preview_image_url,url,width,height","_id":"Nu3OKq7hb02Iq1jN"}
-{"$$deleted":true,"_id":"Nu3OKq7hb02Iq1jN"}
-{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=43298395&count=200&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys&media.fields=preview_image_url,url,width,height","_id":"vJ7FYozAS6xx6N35"}
-{"$$deleted":true,"_id":"vJ7FYozAS6xx6N35"}
-{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=95092020&count=200&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys&media.fields=preview_image_url,url,width,height","_id":"TwN6LNxTWivhwYHb"}
+{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=43298395&count=200&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys","_id":"4AqnIrFbgJtpLaIq"}

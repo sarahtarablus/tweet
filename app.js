@@ -59,9 +59,8 @@ const getTextWithoutLink = (text, url) => {
 }
 
 
-const getTweets = async (res) => {
+const getTweets = (res) => {
   const tweets = res;
- //console.log(tweets)
   let tweetsArray = [];
   tweets.forEach(t => {
     let media = t.entities.media;
@@ -72,16 +71,7 @@ const getTweets = async (res) => {
     let pictureUrl = getPictureUrlLink(media);
     let text1 = getTextWithoutLink(entireText, pictureUrl);
     let text = getTextWithoutLink(text1, link);
-    // let f;
-    // if(text.indexOf(link) !== -1){
-    //   f = text.replace(link, '')
-   
-    // }else {
-    //   f = text
-    // }
 
-   
- 
     let tweetDate = new Date(t.created_at);
     let day = getDay(t.created_at);
     let date = tweetDate.getDate();
@@ -115,6 +105,7 @@ const headers = {
 }
 
 
+
 const storeUrlInDatabase = (uri) => {
   database.remove({}, {multi: true}, ((err, data) => {}))
   database.insert({url: uri})
@@ -122,20 +113,29 @@ const storeUrlInDatabase = (uri) => {
 
 
 
-app.post('/api/content', ((req, res) => {
+
+const getUsername = (req) => {
   const responseJson = JSON.parse(req.body.form);
   let userData = [];
   userData.push(responseJson);
   let username;
-  for(let i = 0; i < userData.length; i++){
-    username = userData[i].input 
-  } 
-  storeUrlInDatabase(`https://api.twitter.com/1.1/search/tweets.json?q=${username}&count=20&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys&media.fields=preview_image_url,url,width,height`)
+  userData.forEach(user => {
+    username = user.input
+  })
+  return username
+}
+
+
+
+app.post('/api/content', ((req, res) => {
+  const username = getUsername(req);
+  storeUrlInDatabase(`https://api.twitter.com/1.1/search/tweets.json?q=${username}&count=20&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys`)
   
   res.json({
     sataus: 'Request received'
   }); 
 }));
+
 
 
 
@@ -146,25 +146,19 @@ app.get('/api/content', ((req, res) => {
       return;
     }
     const url = data[data.length - 1].url;
-  
-    const userUrl = await axios.get(url, headers)
-     .then(res => getTweets(res.data.statuses))
+    await axios.get(url, headers)
+     .then(data => getTweets(data.data.statuses))
      .then(data => res.send(data))
-     .catch(err => console.log('Error' + '' + err)) 
+     .catch(err => console.log('Error' + '' + err))
  });
 }));
 
 
 
+
 app.post('/api/users', ((req, res) => {
-  const responseJson = JSON.parse(req.body.form);
-  let userData = [];
-  userData.push(responseJson);
-  let username;
-  for(let i = 0; i < userData.length; i++){
-    username = userData[i].input 
-  } 
-  storeUrlInDatabase(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=20&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys&media.fields=preview_image_url,url,width,height`)
+  const username = getUsername(req);
+  storeUrlInDatabase(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${username}&count=20&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys`)
 
   res.json({
     sataus: 'Request received'
@@ -181,11 +175,11 @@ app.get('/api/users', ((req, res) => {
        return;
      }
      try{
-     const url = data[data.length-1].url;
-     const userTweets = await axios.get(url, headers)
-     .then(res => getTweets(res.data))
-     .then(data=> res.send(data))
-     .catch(err => console.log(err))
+       const url = data[data.length-1].url;
+       await axios.get(url, headers)
+        .then(res => getTweets(res.data))
+        .then(data=> res.send(data))
+        .catch(err => console.log(err))
   
      }catch(err) {
       console.log(err)
@@ -218,24 +212,20 @@ app.get('/api/profiles', (async (req, res) => {
 
     const profileUserOne = await axios.get(url1, headers)
     .then(res => getProfile(res.data))
-    
     const profileUserTwo = await axios.get(url2, headers)
     .then(res => getProfile(res.data))
     .catch(err => console.log(err))
-    
     const profileUserThree = await axios.get(url3, headers)
     .then(res => getProfile(res.data))
     .catch(err => console.log(err))
-    
     const profileUserFour = await axios.get(url4, headers)
     .then(res => getProfile(res.data))
     .catch(err => console.log(err))
-
     const profileUserFive = await axios.get(url5, headers)
     .then(res => getProfile(res.data))
     .catch(err => console.log(err))
    
-     const usersProfiles = axios.all([profileUserOne, profileUserTwo,   profileUserThree, profileUserFour, profileUserFive])
+    axios.all([profileUserOne, profileUserTwo,   profileUserThree, profileUserFour, profileUserFive])
       .then(responses => res.send(responses))
       .catch(err => console.log(err)) 
 }))
@@ -245,7 +235,7 @@ app.get('/api/profiles', (async (req, res) => {
 
 app.post('/api/random', ((req, res) => {
   const userId = JSON.parse(req.body.form);
-  storeUrlInDatabase(`https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=200&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys&media.fields=preview_image_url,url,width,height`)
+  storeUrlInDatabase(`https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=${userId}&count=200&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys`)
  
   res.json({
     sataus: 'Request received'

@@ -10,38 +10,28 @@ const Search = (props) => {
  
 const getTweets = async (url) => {
     let urls = url;
-    try{
-      const options = {
-          headers: {
-            ContentType: 'application/json'
-          },
-          form: JSON.stringify({
-            input
-          })
-        }
-      
-        const name = await axios.post(urls, options)
-         .then(data => data)
-         .catch(err => console.log(err))
-        const tweets = await axios.get(urls)
-         .then(res => setUserTweets([...res.data]))
-         .catch(err => console.log(err))
-    }catch (err) {
-        console.log(err)
+  try{
+    const options = {
+      headers: {
+        ContentType: 'application/json'
+      },
+        form: JSON.stringify({
+              input
+        })
     }
+      
+    const name = await axios.post(urls, options)
+      .then(data => data)
+      .catch(err => console.log(err))
+    const tweets = await axios.get(urls)
+      .then(res => setUserTweets([...res.data]))
+      .catch(err => console.log(err))
+  }catch (err) {
+      console.log(err)
+  }
 }
 
 
-// const openLink = async (e) => {
-//   e.preventDefault();
-//   await axios.get(tweets.link)
-//   .then(res => console.log(res))
-//   .catch(err => console.log(err))
-// }
-
-
-
- 
  
 
 return (
