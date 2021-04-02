@@ -15,6 +15,14 @@ app.use(bodyParser.json({extended: true}));
 
 
 
+
+const headers = {
+  headers: {
+    Authorization: `Bearer ${process.env.BEARER_TOKEN}`
+  },
+  ContentType: 'application/json'
+}
+
 const getDay = (date) => {
   let day = new Date(date).getDay()
   return isNaN(day) ? null : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][day]
@@ -95,14 +103,6 @@ const getTweets = (res) => {
  })
     return tweetsArray;
 }  
-
-
-const headers = {
-  headers: {
-    Authorization: `Bearer ${process.env.BEARER_TOKEN}`
-  },
-  ContentType: 'application/json'
-}
 
 
 
@@ -260,7 +260,7 @@ app.get('/api/random', ((req, res) => {
 
 
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   const url = `http://localhost:${PORT}/`

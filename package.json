@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "twitter": "npm run watch --prefix twitter",
-    "dev": "concurrently \"nodemon app.js\" \"npm run twitter\""
+    "dev": "concurrently \"nodemon app.js\" \"npm run twitter\"",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
