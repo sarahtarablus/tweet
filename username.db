@@ -1,7 +1,1 @@
-{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=gordonramsay&count=20&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys","_id":"r82i53Ha6vFdxqsm"}
-{"$$deleted":true,"_id":"r82i53Ha6vFdxqsm"}
-{"url":"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=gordonramsay&count=20&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys","_id":"21je97r0rIvlnbD6"}
-{"$$deleted":true,"_id":"21je97r0rIvlnbD6"}
-{"url":"https://api.twitter.com/1.1/search/tweets.json?q=gordonramsay&count=20&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys","_id":"3K7xQ8cEiZB9wSUC"}
-{"$$deleted":true,"_id":"3K7xQ8cEiZB9wSUC"}
 {"url":"https://api.twitter.com/1.1/search/tweets.json?q=&count=20&include_entities=true&tweet_mode=extended&expansions=attachments.media_keys","_id":"9ZPsl27qAZCaCyi2"}

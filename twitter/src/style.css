@@ -27,13 +27,12 @@ body {
 }
 
 .phrase-container {
-  width: 80px;
+  width: 570px;
   margin: 25px 0 0 30px;
   padding: 2px 5px 0 5px;
   font-size: 15px;
   font-weight: lighter;
   color: grey;
-  border: grey solid 1px;
 }
 
 .random {
