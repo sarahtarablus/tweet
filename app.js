@@ -262,9 +262,9 @@ app.get('/api/random', ((req, res) => {
 
 const PORT = process.env.PORT;
 
+
 app.listen(PORT, () => {
   const url = `http://localhost:${PORT}/`
-  console.log(`Listening on ${url}`);
 });
 
 
