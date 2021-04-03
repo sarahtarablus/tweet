@@ -260,7 +260,7 @@ app.get('/api/random', ((req, res) => {
 
 
 
-const PORT = process.env.PORT;
+const PORT = 3000; //process.env.PORT;
 
 
 app.listen(PORT, () => {
