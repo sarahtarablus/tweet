@@ -38,7 +38,7 @@ body {
 
 .card {
   margin-left: auto;
-  margin: 30px 30px 20px 33px;
+  /* margin: 30px 30px 20px 33px; */
   padding: 25px;
   border-radius: 20px;
 }
