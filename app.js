@@ -1,5 +1,4 @@
 require ('dotenv').config();
-require('custom-env').env();
 const express = require('express'),
 path = require('path'),
 app = express(),
