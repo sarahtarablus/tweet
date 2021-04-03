@@ -392,13 +392,19 @@ const Search = props => {
     }
   };
 
+  const clearInput = e => {
+    e.preventDefault();
+    e.target.value = '';
+    setInput('');
+  };
+
   return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("div", {
     className: "search",
     children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("h3", {
       children: "Search for tweets by username or keywords"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 39,
+      lineNumber: 46,
       columnNumber: 5
     }, undefined), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("form", {
       children: [/*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("div", {
@@ -408,18 +414,19 @@ const Search = props => {
           onChange: ({
             target
           }) => setInput(target.value),
+          onClick: clearInput,
           value: input,
           type: "text",
           placeholder: "search",
           required: true
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 42,
+          lineNumber: 49,
           columnNumber: 9
         }, undefined)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 41,
+        lineNumber: 48,
         columnNumber: 7
       }, undefined), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("div", {
         className: "buttons form-group",
@@ -430,7 +437,7 @@ const Search = props => {
           children: "Username"
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 45,
+          lineNumber: 52,
           columnNumber: 9
         }, undefined), /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])("button", {
           onClick: () => getTweets('/api/content'),
@@ -439,17 +446,17 @@ const Search = props => {
           children: "Keyword"
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 46,
+          lineNumber: 53,
           columnNumber: 9
         }, undefined)]
       }, void 0, true, {
         fileName: _jsxFileName,
-        lineNumber: 44,
+        lineNumber: 51,
         columnNumber: 7
       }, undefined)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 40,
+      lineNumber: 47,
       columnNumber: 5
     }, undefined), userTweets.map(user => {
       return /*#__PURE__*/Object(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__["jsxDEV"])(_Showcase_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -465,13 +472,13 @@ const Search = props => {
         likes: user.likes
       }, user.id, false, {
         fileName: _jsxFileName,
-        lineNumber: 50,
+        lineNumber: 57,
         columnNumber: 15
       }, undefined);
     })]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 38,
+    lineNumber: 45,
     columnNumber: 3
   }, undefined);
 };

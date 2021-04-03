@@ -32,6 +32,13 @@ const getTweets = async (url) => {
 }
 
 
+const clearInput = (e) => {
+  e.preventDefault();
+  e.target.value = '';
+  setInput('');
+}
+
+
  
 
 return (
@@ -39,7 +46,7 @@ return (
     <h3>Search for tweets by username or keywords</h3>
     <form>
       <div className='form-group'>
-        <input className='form-control-lg bg-light mt-3 shadow-lg' onChange={({target}) => setInput(target.value)}  value={input} type='text' placeholder='search' required></input>
+        <input className='form-control-lg bg-light mt-3 shadow-lg' onChange={({target}) => setInput(target.value)} onClick={clearInput} value={input} type='text' placeholder='search' required></input>
         </div>
       <div className='buttons form-group'>
         <button onClick={() => getTweets('/api/users')} type='submit' className='btn btn-dark mx-1 mb-5 shadow-lg'>Username</button>
